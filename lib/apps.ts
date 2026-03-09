@@ -1,12 +1,13 @@
 import type { AppConfig } from "./types";
 
 const TASKBAR_HEIGHT = 56;
+const MENU_BAR_HEIGHT = 28;
 
 function centerPosition(width: number, height: number) {
   if (typeof window === "undefined")
     return { x: 100, y: 80 };
   const x = Math.max(0, (window.innerWidth - width) / 2);
-  const y = Math.max(0, (window.innerHeight - TASKBAR_HEIGHT - height) / 2);
+  const y = Math.max(0, (window.innerHeight - TASKBAR_HEIGHT - MENU_BAR_HEIGHT - height) / 2) + MENU_BAR_HEIGHT;
   return { x, y };
 }
 
@@ -78,3 +79,5 @@ export const getCenterPosition = (appId: AppConfig["id"]) => {
   if (!app) return { x: 100, y: 80 };
   return centerPosition(app.defaultSize.w, app.defaultSize.h);
 };
+
+export { MENU_BAR_HEIGHT, TASKBAR_HEIGHT };
