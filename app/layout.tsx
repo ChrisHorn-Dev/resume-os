@@ -14,7 +14,21 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Chris Horn — Resume",
-  description: "Product-focused software engineer. Operational SaaS, dashboards, and full-stack web applications.",
+  description:
+    "Product-focused software engineer. Operational SaaS, dashboards, and full-stack web applications.",
+  openGraph: {
+    title: "Chris Horn — Resume",
+    description:
+      "Product-focused software engineer. Operational SaaS, dashboards, and full-stack web applications.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Chris Horn — Resume",
+    description:
+      "Product-focused software engineer. Operational SaaS, dashboards, and full-stack web applications.",
+  },
+  robots: "index, follow",
 };
 
 export default function RootLayout({
