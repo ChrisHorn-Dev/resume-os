@@ -30,8 +30,8 @@ pnpm start
 
 ## Deploy
 
-Configured for Vercel. Push to a connected repo or run `vercel` from the project root.
+Configured for Vercel. Push to a connected repo or run `vercel` from the project root. For Open Graph and canonical URLs, set `metadataBase` in `app/layout.tsx` to the production URL.
 
 ## Content
 
-Copy and data live under `content/`. Update `content/contact.ts` with your email before going live.
+Copy and config live under `content/`: contact, social links, about, resume, projects, stack.
