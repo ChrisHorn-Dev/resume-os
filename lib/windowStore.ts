@@ -10,11 +10,13 @@ interface WindowManagerState {
   focusedWindowId: string | null;
   openApp: (appId: WindowState["appId"], overridePosition?: { x: number; y: number }) => void;
   closeWindow: (id: string) => void;
+  closeAllWindows: () => void;
   focusWindow: (id: string) => void;
   clearFocus: () => void;
   setPosition: (id: string, x: number, y: number) => void;
   setSize: (id: string, w: number, h: number) => void;
   setMinimized: (id: string, isMinimized: boolean) => void;
+  minimizeAll: () => void;
   setMaximized: (id: string, isMaximized: boolean) => void;
   setWindowZIndex: (id: string, zIndex: number) => void;
   getNextZIndex: () => number;
@@ -67,6 +69,10 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
     });
   },
 
+  closeAllWindows: () => {
+    set({ windows: [], focusedWindowId: null });
+  },
+
   focusWindow: (id) => {
     const win = get().windows.find((w) => w.id === id);
     if (!win) return;
@@ -104,6 +110,13 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
       windows: s.windows.map((w) =>
         w.id === id ? { ...w, isMinimized } : w
       ),
+    }));
+  },
+
+  minimizeAll: () => {
+    set((s) => ({
+      windows: s.windows.map((w) => ({ ...w, isMinimized: true })),
+      focusedWindowId: null,
     }));
   },
 
