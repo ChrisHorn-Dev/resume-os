@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { Rnd } from "react-rnd";
+import { motion } from "framer-motion";
 import { useWindowStore } from "@/lib/windowStore";
 import { APP_ICONS } from "@/lib/icons";
 import type { WindowState } from "@/lib/types";
-import type { AppId } from "@/lib/types";
 
 const iconMap = APP_ICONS;
 
@@ -23,11 +23,17 @@ export default function Window({ win, children }: WindowProps) {
     setSize,
     setMinimized,
     setMaximized,
-    setWindowZIndex,
     focusedWindowId,
   } = useWindowStore();
 
   const isFocused = focusedWindowId === win.id;
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isFocused && contentRef.current) {
+      contentRef.current.focus({ preventScroll: true });
+    }
+  }, [isFocused]);
 
   const handleFocus = useCallback(() => {
     if (focusedWindowId !== win.id) focusWindow(win.id);
@@ -67,7 +73,13 @@ export default function Window({ win, children }: WindowProps) {
     : { width: win.size.w, height: win.size.h };
 
   return (
-    <Rnd
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.15 }}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <Rnd
       ref={rndRef}
       position={position}
       size={size}
@@ -122,10 +134,17 @@ export default function Window({ win, children }: WindowProps) {
             </button>
           </div>
         </header>
-        <div className="min-h-0 flex-1 overflow-auto">
+        <div
+          ref={contentRef}
+          tabIndex={-1}
+          className="min-h-0 flex-1 overflow-auto outline-none"
+          role="region"
+          aria-label={win.title}
+        >
           {children}
         </div>
       </div>
     </Rnd>
+    </motion.div>
   );
 }
