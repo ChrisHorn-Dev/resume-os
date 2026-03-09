@@ -1,12 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0f0f0f;
-  --foreground: #e4e4e7;
-  --surface: #18181b;
-  --border: #27272a;
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
+  /* Apple-style dark: deep navy/charcoal */
+  --background: #16161a;
+  --foreground: #e5e5ea;
+  --surface: #252528;
+  --surface-elevated: #323236;
+  --menu-bar: #252528;
+  --border: #3a3a3e;
+  --border-subtle: #2a2a2e;
+  --accent: #0a84ff;
+  --accent-hover: #409cff;
+  --accent-glow: rgba(10, 132, 255, 0.12);
+  --accent-glow-strong: rgba(10, 132, 255, 0.2);
+  --window-shadow: 0 10px 40px -12px rgba(0, 0, 0, 0.4);
+  --window-shadow-active: 0 24px 64px -16px rgba(0, 0, 0, 0.52), 0 12px 32px -8px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --window-inner-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.045);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  /* Window control hover glows (subtle) */
+  --control-glow-amber: 0 0 14px rgba(245, 158, 11, 0.22);
+  --control-glow-blue: 0 0 14px rgba(59, 130, 246, 0.22);
+  --control-glow-red: 0 0 14px rgba(239, 68, 68, 0.22);
+  /* Frosted glass — heavy blur + enough tint so background doesn’t bleed through */
+  --window-glass: rgba(20, 22, 28, 0.76);
+  --window-glass-title: rgba(36, 38, 46, 0.68);
+  --window-glass-title-focused: rgba(42, 44, 54, 0.74);
+  --window-glass-content-tint: rgba(22, 24, 30, 0.22);
 }
 
 @theme inline {

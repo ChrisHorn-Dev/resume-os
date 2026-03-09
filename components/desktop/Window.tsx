@@ -90,22 +90,24 @@ export default function Window({ win, children }: WindowProps) {
       onResizeStop={handleResizeStop}
       onMouseDown={handleFocus}
       dragHandleClassName="window-drag-handle"
-      style={{ zIndex: win.zIndex }}
-      className={`overflow-hidden rounded-lg border bg-[var(--surface)] shadow-xl transition-colors ${
+      className={`pointer-events-auto overflow-hidden rounded-xl border bg-[var(--window-glass)] shadow-[var(--window-inner-highlight)] backdrop-blur-[40px] transition-all duration-200 ease-[var(--ease-out)] ${
         isFocused
-          ? "border-[var(--accent)] shadow-[0_0_0_1px_var(--accent)]"
-          : "border-[var(--border)] opacity-95"
+          ? "border-white/[0.08] shadow-[var(--window-shadow-active),var(--window-inner-highlight)] opacity-100"
+          : "border-[var(--border)]/50 shadow-[var(--window-shadow),var(--window-inner-highlight)] opacity-95"
       }`}
+      style={{ zIndex: win.zIndex }}
       data-window-chrome
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.18 }}
+        transition={{ duration: 0.2, ease: [0.33, 1, 0.68, 1] }}
         className="flex h-full flex-col"
       >
         <header
-          className="window-drag-handle flex min-h-10 shrink-0 items-center gap-2 border-b border-[var(--border)] bg-[var(--surface)] px-3"
+          className={`window-drag-handle flex min-h-[40px] shrink-0 items-center gap-3 border-b border-[var(--border)]/50 pl-3 pr-2 pt-1.5 pb-1.5 backdrop-blur-lg ${
+            isFocused ? "bg-[var(--window-glass-title-focused)]" : "bg-[var(--window-glass-title)]"
+          }`}
           onDoubleClick={() => setMaximized(win.id, !win.isMaximized)}
         >
           {IconComponent && (
@@ -113,40 +115,56 @@ export default function Window({ win, children }: WindowProps) {
               <IconComponent size={14} />
             </span>
           )}
-          <span className="min-w-0 flex-1 truncate text-sm font-medium text-[var(--foreground)]">
+          <span className="min-w-0 flex-1 truncate pl-0.5 text-[13px] font-medium text-[var(--foreground)]">
             {win.title}
           </span>
-          <div className="flex shrink-0 items-center gap-0.5">
+          {/* Window controls (right): minimize, maximize, close — custom glass + subtle glow */}
+          <div
+            className="flex shrink-0 items-center gap-1.5"
+            onMouseDown={(e) => e.stopPropagation()}
+          >
             <button
               type="button"
               onClick={() => setMinimized(win.id, true)}
-              className="flex h-6 w-7 items-center justify-center rounded text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200"
+              className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-white/5 backdrop-blur-sm transition-all duration-200 ease-[var(--ease-out)] active:scale-95 ${
+                isFocused
+                  ? "border-white/10 text-zinc-300 hover:bg-white/10 hover:shadow-[var(--control-glow-amber)]"
+                  : "border-white/5 text-zinc-500 hover:bg-white/[0.08] hover:shadow-[var(--control-glow-amber)]"
+              }`}
               aria-label="Minimize"
             >
-              <span className="text-xs leading-none">−</span>
+              <span className="text-[13px] font-light leading-none">−</span>
             </button>
             <button
               type="button"
               onClick={() => setMaximized(win.id, !win.isMaximized)}
-              className="flex h-6 w-7 items-center justify-center rounded text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200"
+              className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-white/5 backdrop-blur-sm transition-all duration-200 ease-[var(--ease-out)] active:scale-95 ${
+                isFocused
+                  ? "border-white/10 text-zinc-300 hover:bg-white/10 hover:shadow-[var(--control-glow-blue)]"
+                  : "border-white/5 text-zinc-500 hover:bg-white/[0.08] hover:shadow-[var(--control-glow-blue)]"
+              }`}
               aria-label={win.isMaximized ? "Restore" : "Maximize"}
             >
-              <span className="text-xs leading-none">□</span>
+              <span className="text-[13px] font-light leading-none">□</span>
             </button>
             <button
               type="button"
               onClick={() => closeWindow(win.id)}
-              className="flex h-6 w-7 items-center justify-center rounded text-zinc-400 hover:bg-red-600/80 hover:text-white"
+              className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-white/5 backdrop-blur-sm transition-all duration-200 ease-[var(--ease-out)] active:scale-95 ${
+                isFocused
+                  ? "border-white/10 text-zinc-300 hover:bg-white/10 hover:shadow-[var(--control-glow-red)] hover:text-red-400/90"
+                  : "border-white/5 text-zinc-500 hover:bg-white/[0.08] hover:shadow-[var(--control-glow-red)] hover:text-red-400/80"
+              }`}
               aria-label="Close"
             >
-              <span className="text-xs leading-none">×</span>
+              <span className="text-[13px] font-light leading-none">✕</span>
             </button>
           </div>
         </header>
         <div
           ref={contentRef}
           tabIndex={-1}
-          className="min-h-0 flex-1 overflow-auto outline-none"
+          className="min-h-0 flex-1 overflow-auto bg-[var(--window-glass-content-tint)] outline-none"
           role="region"
           aria-label={win.title}
         >
