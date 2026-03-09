@@ -9,6 +9,7 @@ const CONTACT_ITEMS = [
     value: "chris@capefearweb.co",
     href: "mailto:chris@capefearweb.co",
     icon: Mail,
+    external: false,
   },
   {
     id: "github",
@@ -32,6 +33,7 @@ const CONTACT_ITEMS = [
     value: "(470) 263-1395",
     href: "tel:+14702631395",
     icon: Phone,
+    external: false,
   },
 ] as const;
 
