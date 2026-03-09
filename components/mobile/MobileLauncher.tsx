@@ -19,14 +19,22 @@ export default function MobileLauncher() {
   return (
     <section
       aria-label="Apps"
-      className="mx-auto flex h-full max-w-xl flex-col px-4 pb-10 pt-4 sm:px-6 sm:pt-6"
+      className="mx-auto flex h-full max-w-xl flex-col px-4 pb-6 sm:px-6"
+      style={{
+        paddingTop: "var(--mobile-home-padding-y)",
+      }}
     >
-      <div className="mb-2 mt-2 flex justify-center sm:mb-4">
-        <div className="rounded-full border border-white/[0.05] bg-white/[0.03] px-3.5 py-1.5 text-[11px] text-zinc-300 shadow-[0_10px_30px_rgba(0,0,0,0.7)] backdrop-blur-2xl">
-          Explore the workspace
+      {/* Single composition: chip → grid → identity, fluid gap between all */}
+      <div
+        className="flex flex-col"
+        style={{ gap: "var(--mobile-home-stack-gap)" }}
+      >
+        <div className="flex justify-center">
+          <div className="rounded-full border border-white/[0.05] bg-white/[0.03] px-3.5 py-1.5 text-[11px] text-zinc-300 shadow-[0_10px_30px_rgba(0,0,0,0.7)] backdrop-blur-2xl">
+            Explore the workspace
+          </div>
         </div>
-      </div>
-      <div className="grid flex-1 grid-cols-2 content-start gap-y-4 gap-x-3 pb-4 pt-1.5 sm:grid-cols-3 sm:gap-y-4.5 sm:gap-x-4">
+        <div className="grid grid-cols-2 content-start gap-y-4 gap-x-3 sm:grid-cols-3 sm:gap-y-4.5 sm:gap-x-4">
         {dockApps.map((app) => {
           const Icon = APP_ICONS[app.id];
           const isOpen = openAppIds.has(app.id);
@@ -61,6 +69,7 @@ export default function MobileLauncher() {
         })}
       </div>
       <MobileIdentityModule />
+    </div>
     </section>
   );
 }

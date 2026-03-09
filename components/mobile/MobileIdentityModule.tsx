@@ -6,10 +6,24 @@ export default function MobileIdentityModule() {
   return (
     <section
       aria-label="Developer identity"
-      className="mt-6 flex items-center justify-center pb-2"
+      className="flex justify-center pb-3 sm:pb-4"
     >
-      <div className="flex flex-col items-center gap-2.5 rounded-2xl bg-black/4 px-4 py-3 text-center text-[11px] text-zinc-400 backdrop-blur-xl shadow-[0_3px_14px_rgba(0,0,0,0.35)]">
-        <div className="relative h-16 w-16 overflow-hidden rounded-full border border-white/10 bg-black/60 shadow-[0_5px_18px_rgba(0,0,0,0.55)] sm:h-20 sm:w-20">
+      <div
+        className="flex w-full max-w-md flex-col items-center rounded-2xl bg-black/4 text-center text-[11px] text-zinc-400 backdrop-blur-xl shadow-[0_3px_14px_rgba(0,0,0,0.35)] sm:max-w-lg"
+        style={{
+          maxWidth: "var(--mobile-home-card-max-width)",
+          paddingBlock: "var(--mobile-home-card-padding-y)",
+          paddingInline: "var(--mobile-home-card-padding-x)",
+          gap: "var(--mobile-home-card-gap)",
+        }}
+      >
+        <div
+          className="relative overflow-hidden rounded-full border border-white/10 bg-black/60 shadow-[0_5px_18px_rgba(0,0,0,0.55)]"
+          style={{
+            width: "var(--mobile-home-avatar-size)",
+            height: "var(--mobile-home-avatar-size)",
+          }}
+        >
           <img
             src="/avatar-chris-bw.jpg"
             alt="Chris Horn"

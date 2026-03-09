@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useWindowStore } from "@/lib/windowStore";
-import { getCenterPosition } from "@/lib/apps";
 import Window from "./Window";
 import ResumeApp from "@/components/apps/ResumeApp";
 import ProjectsApp from "@/components/apps/ProjectsApp";
@@ -24,15 +23,7 @@ const APP_COMPONENTS = {
 } as const;
 
 export default function WindowManager() {
-  const { windows, clearFocus, openApp } = useWindowStore();
-
-  useEffect(() => {
-    // Desktop now starts from the launcher; no auto-opened app windows.
-    const visited = sessionStorage.getItem("resume-os-visited");
-    if (!visited) {
-      sessionStorage.setItem("resume-os-visited", "1");
-    }
-  }, [openApp]);
+  const { windows, clearFocus } = useWindowStore();
 
   useEffect(() => {
     const onMouseDown = (e: MouseEvent) => {

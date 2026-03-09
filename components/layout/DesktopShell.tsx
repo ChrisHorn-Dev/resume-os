@@ -54,7 +54,7 @@ export default function DesktopShell() {
       </div>
 
       {/* Layer 5 — menu bar */}
-      <div className="absolute inset-x-0 top-0 z-[300]">
+      <div className="absolute inset-x-0 top-0 z-[300] pt-[env(safe-area-inset-top)]">
         <MenuBar />
       </div>
     </div>

@@ -197,8 +197,8 @@ Comfortable moving between product, backend architecture, and frontend implement
   };
 
   return (
-    <div className="flex h-full flex-col bg-[#0d0d0f] font-mono text-[13px]">
-      <div className="min-h-0 flex-1 overflow-auto p-4">
+    <div className="flex h-full min-h-0 flex-col bg-[#0d0d0f] font-mono text-[13px]">
+      <div className="min-h-0 flex-1 overflow-auto px-4 py-3">
         {lines.map((line, i) => (
           <div key={i} className="mb-1">
             {line.type === "input" ? (
@@ -216,19 +216,20 @@ Comfortable moving between product, backend architecture, and frontend implement
             )}
           </div>
         ))}
-        <div className="flex items-center gap-0" ref={bottomRef}>
-          <span className="text-emerald-400/90">{PROMPT}</span>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="min-w-[120px] flex-1 border-none bg-transparent pl-0 text-zinc-300 outline-none placeholder:text-zinc-600"
-            placeholder="Type a command..."
-            spellCheck={false}
-            autoFocus
-          />
-        </div>
+        <div ref={bottomRef} />
+      </div>
+      <div className="flex items-center gap-1 border-t border-white/[0.06] px-4 py-2">
+        <span className="text-emerald-400/90">{PROMPT}</span>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="min-w-[120px] flex-1 border-none bg-transparent pl-0 text-zinc-300 outline-none placeholder:text-zinc-600"
+          placeholder="Type a command..."
+          spellCheck={false}
+          autoFocus
+        />
       </div>
     </div>
   );

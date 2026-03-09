@@ -59,7 +59,9 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
       };
     }
 
-    const position = overridePosition ?? app.defaultPosition ?? { x: 100, y: 80 };
+    let position = overridePosition ?? app.defaultPosition ?? { x: 100, y: 80 };
+    const minY = MENU_BAR_HEIGHT + 16;
+    position = { x: position.x, y: Math.max(position.y, minY) };
     const newWindow: WindowState = {
       id,
       appId,

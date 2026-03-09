@@ -16,7 +16,7 @@ export default function MobileShell() {
     windows.find((w) => w.id === focusedWindowId) ?? nonMinimized[nonMinimized.length - 1];
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-[var(--background)]">
+    <div className="relative min-h-[100dvh] h-full w-screen overflow-hidden bg-[var(--background)]">
       <BootScreen />
 
       {/* Wallpaper behind mobile shell for consistent brand */}
@@ -24,9 +24,12 @@ export default function MobileShell() {
         <Desktop />
       </div>
 
-      <div className="relative z-10 flex h-full flex-col bg-gradient-to-b from-black/40 via-black/20 to-black/40">
+      <div
+        className="relative z-10 flex h-full min-h-[100dvh] flex-col bg-gradient-to-b from-black/40 via-black/20 to-black/40 pt-[env(safe-area-inset-top)] pb-[calc(env(safe-area-inset-bottom)+3.5rem)]"
+        style={{ minHeight: "100dvh" }}
+      >
         <MobileTopBar />
-        <div className="flex-1 overflow-hidden">
+        <div className="min-h-0 flex-1 overflow-hidden">
           {activeWin ? <MobileAppView win={activeWin} /> : <MobileLauncher />}
         </div>
         <MobileSystemBar />

@@ -26,6 +26,18 @@
   --window-glass-title: rgba(28, 30, 38, 0.9);
   --window-glass-title-focused: rgba(32, 34, 44, 0.96);
   --window-glass-content-tint: rgba(10, 12, 18, 0.7);
+
+  /* Mobile home: fluid composition (one system, no device hacks) */
+  --mobile-home-padding-y: clamp(1rem, 3vh, 1.5rem);
+  --mobile-home-padding-x: 1rem;
+  --mobile-home-stack-gap: clamp(0.75rem, 2.5vh, 1.5rem);
+  /* Avatar: 4rem on small phones; scales up with viewport (vmin) so Pro Max gets ~4.75–5rem */
+  --mobile-home-avatar-size: clamp(4rem, 16vmin, 5.25rem);
+  /* Card: same on small; slightly more padding/gap/width on larger mobile */
+  --mobile-home-card-padding-y: clamp(0.875rem, 2.2vh, 1.25rem);
+  --mobile-home-card-padding-x: 1rem;
+  --mobile-home-card-gap: clamp(0.75rem, 1.8vh, 1.125rem);
+  --mobile-home-card-max-width: min(24rem, 100%);
 }
 
 @theme inline {
