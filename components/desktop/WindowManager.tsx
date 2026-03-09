@@ -42,7 +42,9 @@ export default function WindowManager() {
       const target = e.target as Node;
       const inWindow = (target as Element).closest?.("[data-window-chrome]");
       const inTaskbar = (target as Element).closest?.("footer");
-      if (!inWindow && !inTaskbar) clearFocus();
+      const inMenuBar = (target as Element).closest?.("[data-menu-bar]");
+      const inDesktopIcons = (target as Element).closest?.("[data-desktop-icons]");
+      if (!inWindow && !inTaskbar && !inMenuBar && !inDesktopIcons) clearFocus();
     };
     document.addEventListener("mousedown", onMouseDown, true);
     return () => document.removeEventListener("mousedown", onMouseDown, true);
@@ -52,7 +54,7 @@ export default function WindowManager() {
     <>
       {isMobile && <MobileAppView />}
       <div
-        className={`absolute inset-0 z-10 ${isMobile ? "max-md:invisible max-md:pointer-events-none" : ""}`}
+        className={`pointer-events-none absolute inset-0 ${isMobile ? "max-md:invisible" : ""}`}
       >
         {windows.map((win) => {
           if (isMobile) return null;
