@@ -29,6 +29,7 @@ export const metadata: Metadata = {
       "Product-focused software engineer. Operational SaaS, dashboards, and full-stack web applications.",
   },
   robots: "index, follow",
+  themeColor: "#16161a",
 };
 
 export default function RootLayout({
