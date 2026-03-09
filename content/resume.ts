@@ -1,4 +1,6 @@
-export const resumeIntro = `Product-focused developer and founder building operational SaaS platforms, internal tools, and high-impact web applications. I focus on systems that solve real business problems: role-based platforms, dashboards, automation, and modern frontend architecture. Targeting product-driven software engineering or technical leadership roles where I can design and ship complete systems from concept to production.`;
+export const resumeIntro = `Product-focused developer building web applications, internal tools, and operational platforms. Experienced in developing role-based systems, dashboards, and high-performance websites for real-world business use.
+
+Strong focus on turning product ideas into working software quickly while maintaining clean architecture, usability, and performance.`;
 
 export const resumeMeta = {
   title: "Chris Horn — Resume",
