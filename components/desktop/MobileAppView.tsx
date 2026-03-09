@@ -6,14 +6,18 @@ import ProjectsApp from "@/components/apps/ProjectsApp";
 import TechStackApp from "@/components/apps/TechStackApp";
 import AboutApp from "@/components/apps/AboutApp";
 import ContactApp from "@/components/apps/ContactApp";
+import WelcomeApp from "@/components/apps/WelcomeApp";
+import TerminalApp from "@/components/apps/TerminalApp";
 import { X } from "lucide-react";
 
 const APP_COMPONENTS = {
+  welcome: WelcomeApp,
   resume: ResumeApp,
   projects: ProjectsApp,
   techstack: TechStackApp,
   about: AboutApp,
   contact: ContactApp,
+  terminal: TerminalApp,
 } as const;
 
 export default function MobileAppView() {

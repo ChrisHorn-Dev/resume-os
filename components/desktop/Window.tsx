@@ -46,6 +46,10 @@ export default function Window({ win, children }: WindowProps) {
     [win.id, setPosition]
   );
 
+  const handleDragStart = useCallback(() => {
+    focusWindow(win.id);
+  }, [focusWindow, win.id]);
+
   const handleResizeStop = useCallback(
     (_e: unknown, _dir: unknown, ref: HTMLElement) => {
       setSize(win.id, ref.offsetWidth, ref.offsetHeight);
@@ -73,13 +77,7 @@ export default function Window({ win, children }: WindowProps) {
     : { width: win.size.w, height: win.size.h };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.15 }}
-      style={{ height: "100%", width: "100%" }}
-    >
-      <Rnd
+    <Rnd
       ref={rndRef}
       position={position}
       size={size}
@@ -88,13 +86,24 @@ export default function Window({ win, children }: WindowProps) {
       disableDragging={win.isMaximized}
       enableResizing={!win.isMaximized}
       onDragStop={handleDragStop}
+      onDragStart={handleDragStart}
       onResizeStop={handleResizeStop}
       onMouseDown={handleFocus}
       dragHandleClassName="window-drag-handle"
       style={{ zIndex: win.zIndex }}
-      className="overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--surface)] shadow-xl"
+      className={`overflow-hidden rounded-lg border bg-[var(--surface)] shadow-xl transition-colors ${
+        isFocused
+          ? "border-[var(--accent)] shadow-[0_0_0_1px_var(--accent)]"
+          : "border-[var(--border)] opacity-95"
+      }`}
+      data-window-chrome
     >
-      <div className="flex h-full flex-col">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.18 }}
+        className="flex h-full flex-col"
+      >
         <header
           className="window-drag-handle flex min-h-10 shrink-0 items-center gap-2 border-b border-[var(--border)] bg-[var(--surface)] px-3"
           onDoubleClick={() => setMaximized(win.id, !win.isMaximized)}
@@ -143,8 +152,7 @@ export default function Window({ win, children }: WindowProps) {
         >
           {children}
         </div>
-      </div>
+      </motion.div>
     </Rnd>
-    </motion.div>
   );
 }

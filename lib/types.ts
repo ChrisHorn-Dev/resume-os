@@ -1,4 +1,11 @@
-export type AppId = "resume" | "projects" | "techstack" | "about" | "contact";
+export type AppId =
+  | "resume"
+  | "projects"
+  | "techstack"
+  | "about"
+  | "contact"
+  | "welcome"
+  | "terminal";
 
 export interface WindowState {
   id: string;
@@ -17,4 +24,5 @@ export interface AppConfig {
   icon: string;
   defaultSize: { w: number; h: number };
   defaultPosition?: { x: number; y: number };
+  showInDock?: boolean;
 }

@@ -10,32 +10,47 @@ export default function ProjectsApp() {
         {projects.map((p) => (
           <li
             key={p.id}
-            className={`rounded-lg border border-[var(--border)] bg-zinc-900/50 p-3 ${p.featured ? "ring-1 ring-[var(--accent)]/30" : ""}`}
+            className="rounded-xl border border-[var(--border)] bg-zinc-900/40 p-4 shadow-sm"
           >
-            <div className="flex items-start justify-between gap-2">
-              <h3 className="font-medium text-[var(--foreground)]">{p.name}</h3>
-              {p.label === "live" && p.link ? (
+            <h3 className="text-base font-semibold text-[var(--foreground)]">
+              {p.name}
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+              {p.description}
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {p.tech.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-md border border-[var(--border)] bg-zinc-800/80 px-2 py-1 text-xs text-zinc-300"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {p.label === "case-study" && (
+                <span className="inline-flex items-center rounded-md bg-zinc-700/80 px-3 py-1.5 text-xs font-medium text-zinc-300">
+                  Case Study
+                </span>
+              )}
+              {p.label === "live" && p.link && (
                 <a
                   href={p.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 text-[var(--accent)] hover:underline"
-                  aria-label={`Open ${p.name}`}
+                  className="inline-flex items-center gap-1.5 rounded-md bg-[var(--accent)]/20 px-3 py-1.5 text-xs font-medium text-[var(--accent)] hover:bg-[var(--accent)]/30"
                 >
-                  <ExternalLink size={14} />
+                  <ExternalLink size={12} />
+                  Live Demo
                 </a>
-              ) : (
-                <span className="shrink-0 rounded bg-zinc-700 px-1.5 py-0.5 text-xs text-zinc-400">
-                  {p.label === "case-study" ? "Case study" : "Private"}
+              )}
+              {p.label === "private" && (
+                <span className="inline-flex items-center rounded-md bg-zinc-700/80 px-3 py-1.5 text-xs font-medium text-zinc-400">
+                  Private
                 </span>
               )}
             </div>
-            <p className="mt-1 text-sm leading-relaxed text-zinc-400">
-              {p.description}
-            </p>
-            <p className="mt-2 text-xs text-zinc-500">
-              {p.tech.join(" · ")}
-            </p>
           </li>
         ))}
       </ul>

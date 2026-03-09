@@ -10,7 +10,7 @@ export default function Home() {
     <div className="relative h-screen w-screen overflow-hidden">
       <BootScreen />
       <Desktop />
-      <div className="absolute inset-0 bottom-12">
+      <div className="absolute inset-0 bottom-14">
         <WindowManager />
       </div>
       <Taskbar />

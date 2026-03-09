@@ -8,9 +8,10 @@ const genId = () => `win_${Date.now()}_${Math.random().toString(36).slice(2, 8)}
 interface WindowManagerState {
   windows: WindowState[];
   focusedWindowId: string | null;
-  openApp: (appId: WindowState["appId"]) => void;
+  openApp: (appId: WindowState["appId"], overridePosition?: { x: number; y: number }) => void;
   closeWindow: (id: string) => void;
   focusWindow: (id: string) => void;
+  clearFocus: () => void;
   setPosition: (id: string, x: number, y: number) => void;
   setSize: (id: string, w: number, h: number) => void;
   setMinimized: (id: string, isMinimized: boolean) => void;
@@ -28,7 +29,7 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
     return nextZ;
   },
 
-  openApp: (appId) => {
+  openApp: (appId, overridePosition) => {
     const app = getAppById(appId);
     if (!app) return;
     const existing = get().windows.find((w) => w.appId === appId);
@@ -39,11 +40,12 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
     }
     const id = genId();
     const z = get().getNextZIndex();
+    const position = overridePosition ?? app.defaultPosition ?? { x: 100, y: 80 };
     const newWindow: WindowState = {
       id,
       appId,
       title: app.title,
-      position: app.defaultPosition ?? { x: 100, y: 80 },
+      position,
       size: app.defaultSize,
       zIndex: z,
       isMinimized: false,
@@ -75,6 +77,10 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
       ),
       focusedWindowId: id,
     }));
+  },
+
+  clearFocus: () => {
+    set({ focusedWindowId: null });
   },
 
   setPosition: (id, x, y) => {
