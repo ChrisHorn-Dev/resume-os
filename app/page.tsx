@@ -3,10 +3,12 @@
 import Desktop from "@/components/desktop/Desktop";
 import Taskbar from "@/components/desktop/Taskbar";
 import WindowManager from "@/components/desktop/WindowManager";
+import BootScreen from "@/components/desktop/BootScreen";
 
 export default function Home() {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
+      <BootScreen />
       <Desktop />
       <div className="absolute inset-0 bottom-12">
         <WindowManager />
