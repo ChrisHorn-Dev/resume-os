@@ -9,7 +9,7 @@ export default function Taskbar() {
 
   return (
     <footer
-      className="absolute bottom-0 left-0 right-0 z-[100] flex h-12 items-center gap-1 border-t border-[var(--border)] bg-[var(--surface)] px-2"
+      className="absolute bottom-0 left-0 right-0 z-[100] flex h-14 items-center gap-1 border-t border-[var(--border)] bg-[var(--surface)] px-2"
       role="toolbar"
       aria-label="Application launcher"
     >
@@ -36,23 +36,23 @@ export default function Taskbar() {
               key={app.id}
               type="button"
               onClick={handleClick}
-              className={`flex h-9 min-w-[4rem] items-center justify-center gap-2 rounded px-3 text-sm transition-colors ${
+              className={`flex h-10 min-h-10 min-w-[3rem] flex-1 max-w-20 items-center justify-center gap-2 rounded px-2 text-sm transition-colors touch-manipulation sm:min-w-[4rem] sm:max-w-none ${
                 isFocused
                   ? "bg-[var(--accent)] text-white"
                   : isOpen
                     ? "bg-zinc-700/80 text-[var(--foreground)]"
-                    : "text-zinc-400 hover:bg-zinc-700/60 hover:text-zinc-200"
+                    : "text-zinc-400 hover:bg-zinc-700/60 hover:text-zinc-200 active:bg-zinc-700/80"
               }`}
               aria-pressed={isFocused}
               aria-label={`Open ${app.title}`}
             >
-              {Icon && <Icon size={18} aria-hidden />}
+              {Icon && <Icon size={20} aria-hidden />}
               <span className="hidden sm:inline">{app.title}</span>
             </button>
           );
         })}
       </div>
-      <div className="w-16 shrink-0" aria-hidden />
+      <div className="w-12 shrink-0 sm:w-16" aria-hidden />
     </footer>
   );
 }
