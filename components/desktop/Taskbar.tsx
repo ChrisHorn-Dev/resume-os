@@ -41,7 +41,7 @@ export default function Taskbar() {
 
   const handleLauncherApp = (appId: AppId) => {
     const pos = appId === "projects" ? getCenterPosition("projects") : undefined;
-    openApp(appId, pos);
+    openApp(appId, { position: pos });
     setLauncherOpen(false);
   };
 

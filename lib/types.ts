@@ -16,6 +16,8 @@ export interface WindowState {
   zIndex: number;
   isMinimized: boolean;
   isMaximized: boolean;
+  /** Optional payload for the app (e.g. initialProjectId for projects). */
+  payload?: Record<string, unknown>;
 }
 
 export interface AppConfig {

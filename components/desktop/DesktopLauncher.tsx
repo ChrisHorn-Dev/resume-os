@@ -10,7 +10,7 @@ export default function DesktopLauncher() {
   const dockApps = getDockApps();
 
   const handleOpen = (id: AppId) => {
-    openApp(id, getCenterPosition(id));
+    openApp(id, { position: getCenterPosition(id) });
   };
 
   const openAppIds = new Set(windows.map((w) => w.appId));

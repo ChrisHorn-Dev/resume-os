@@ -7,7 +7,7 @@ export default function WelcomeApp() {
   const { openApp } = useWindowStore();
 
   const handleOpenProjects = () => {
-    openApp("projects", getCenterPosition("projects"));
+    openApp("projects", { position: getCenterPosition("projects") });
   };
 
   const handleOpenResume = () => {

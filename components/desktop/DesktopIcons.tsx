@@ -30,7 +30,7 @@ export default function DesktopIcons() {
     } else {
       const pos =
         appId === "projects" ? getCenterPosition("projects") : undefined;
-      openApp(appId, pos);
+      openApp(appId, { position: pos });
     }
     setSelectedId(null);
   };

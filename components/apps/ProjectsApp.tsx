@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function PhysicianDemo() {
   const [view, setView] = useState<"overview" | "appointments" | "practices" | "admin">("overview");
@@ -165,6 +165,8 @@ function PhysicianDemo() {
 }
 import { projects } from "@/content/projects";
 import { ChevronLeft } from "lucide-react";
+import { useWindow } from "@/lib/WindowContext";
+import { useProjectsEntryStore } from "@/lib/projectsEntryStore";
 
 function StatusPill({
   label,
@@ -202,6 +204,20 @@ export default function ProjectsApp() {
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const selected = curated.find((p) => p.id === selectedId) ?? null;
+
+  const win = useWindow();
+  const initialProjectIdFromStore = useProjectsEntryStore((s) => s.initialProjectId);
+  const setInitialProjectId = useProjectsEntryStore((s) => s.setInitialProjectId);
+
+  useEffect(() => {
+    const initialId =
+      (win?.payload?.projectId as string | undefined) ?? initialProjectIdFromStore ?? null;
+    if (initialId && curated.some((p) => p.id === initialId)) {
+      setSelectedId(initialId);
+      setInitialProjectId(null);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- only run when entry point changes
+  }, [win?.payload?.projectId, initialProjectIdFromStore]);
 
   if (selected && selected.details) {
     return (

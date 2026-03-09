@@ -25,6 +25,10 @@ interface MobileAppViewProps {
   win: WindowState;
 }
 
+/**
+ * Mobile app chrome (header + content) for non-terminal apps.
+ * Terminal on mobile is rendered as a fixed overlay by MobileShell (MobileTerminalScene).
+ */
 export default function MobileAppView({ win }: MobileAppViewProps) {
   const { closeWindow } = useWindowStore();
   const AppComponent = APP_COMPONENTS[win.appId];
@@ -58,4 +62,3 @@ export default function MobileAppView({ win }: MobileAppViewProps) {
     </section>
   );
 }
-

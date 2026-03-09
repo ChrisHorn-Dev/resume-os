@@ -40,7 +40,7 @@ export default function MenuBar() {
   }, []);
 
   const handleFileOpenResume = () => {
-    openApp("resume", getCenterPosition("resume"));
+    openApp("resume", { position: getCenterPosition("resume") });
     setOpenMenu(null);
   };
 
@@ -61,7 +61,7 @@ export default function MenuBar() {
   };
 
   const handleHelpAbout = () => {
-    openApp("about", getCenterPosition("about"));
+    openApp("about", { position: getCenterPosition("about") });
     setOpenMenu(null);
   };
 

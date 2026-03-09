@@ -6,10 +6,12 @@ import { getAppById, MENU_BAR_HEIGHT, TASKBAR_HEIGHT } from "./apps";
 let nextZ = 200;
 const genId = () => `win_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
+type OpenAppOptions = { position?: { x: number; y: number }; payload?: Record<string, unknown> };
+
 interface WindowManagerState {
   windows: WindowState[];
   focusedWindowId: string | null;
-  openApp: (appId: WindowState["appId"], overridePosition?: { x: number; y: number }) => void;
+  openApp: (appId: WindowState["appId"], options?: OpenAppOptions) => void;
   closeWindow: (id: string) => void;
   closeAllWindows: () => void;
   focusWindow: (id: string) => void;
@@ -32,13 +34,23 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
     return nextZ;
   },
 
-  openApp: (appId, overridePosition) => {
+  openApp: (appId, options) => {
     const app = getAppById(appId);
     if (!app) return;
+    const { position: overridePosition, payload } = options ?? {};
     const existing = get().windows.find((w) => w.appId === appId);
     if (existing) {
-      get().focusWindow(existing.id);
-      set({ focusedWindowId: existing.id });
+      if (payload != null && Object.keys(payload).length > 0) {
+        set((s) => ({
+          windows: s.windows.map((w) =>
+            w.id === existing.id ? { ...w, payload } : w
+          ),
+          focusedWindowId: existing.id,
+        }));
+      } else {
+        get().focusWindow(existing.id);
+        set({ focusedWindowId: existing.id });
+      }
       return;
     }
     const id = genId();
@@ -71,6 +83,7 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
       zIndex: z,
       isMinimized: false,
       isMaximized: false,
+      ...(payload != null && Object.keys(payload).length > 0 ? { payload } : {}),
     };
     set((s) => ({
       windows: [...s.windows, newWindow],

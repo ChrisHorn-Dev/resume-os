@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { Rnd } from "react-rnd";
 import { useWindowStore } from "@/lib/windowStore";
 import { APP_ICONS } from "@/lib/icons";
+import { WindowProvider } from "@/lib/WindowContext";
 import type { WindowState } from "@/lib/types";
 
 const iconMap = APP_ICONS;
@@ -163,7 +164,9 @@ export default function Window({ win, children }: WindowProps) {
           role="region"
           aria-label={win.title}
         >
-          {children}
+          <WindowProvider win={win}>
+            {children}
+          </WindowProvider>
         </div>
       </div>
     </Rnd>

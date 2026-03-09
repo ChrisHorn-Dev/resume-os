@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useWindowStore } from "@/lib/windowStore";
+import { useViewportMode } from "@/lib/useViewportMode";
 
 function useSystemTime() {
   const [time, setTime] = useState("");
@@ -22,6 +24,15 @@ function useSystemTime() {
 
 export default function MobileSystemBar() {
   const time = useSystemTime();
+  const { windows, focusedWindowId } = useWindowStore();
+  const mode = useViewportMode();
+
+  const nonMinimized = windows.filter((w) => !w.isMinimized);
+  const activeWin =
+    windows.find((w) => w.id === focusedWindowId) ?? nonMinimized[nonMinimized.length - 1];
+  const hideForTerminal = mode === "mobile" && activeWin?.appId === "terminal";
+
+  if (hideForTerminal) return null;
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+8px)] z-50 flex items-center justify-center px-4">

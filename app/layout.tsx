@@ -32,6 +32,12 @@ export const metadata: Metadata = {
   themeColor: "#16161a",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  interactiveWidget: "overlays-content" as const,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
