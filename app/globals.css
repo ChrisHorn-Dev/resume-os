@@ -21,11 +21,11 @@
   --control-glow-amber: 0 0 14px rgba(245, 158, 11, 0.22);
   --control-glow-blue: 0 0 14px rgba(59, 130, 246, 0.22);
   --control-glow-red: 0 0 14px rgba(239, 68, 68, 0.22);
-  /* Frosted glass — heavy blur + enough tint so background doesn’t bleed through */
-  --window-glass: rgba(20, 22, 28, 0.76);
-  --window-glass-title: rgba(36, 38, 46, 0.68);
-  --window-glass-title-focused: rgba(42, 44, 54, 0.74);
-  --window-glass-content-tint: rgba(22, 24, 30, 0.22);
+  /* Frosted glass — stronger tint for readability, especially on mobile */
+  --window-glass: rgba(12, 14, 20, 0.9);
+  --window-glass-title: rgba(28, 30, 38, 0.9);
+  --window-glass-title-focused: rgba(32, 34, 44, 0.96);
+  --window-glass-content-tint: rgba(10, 12, 18, 0.7);
 }
 
 @theme inline {
@@ -48,4 +48,18 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.mobile-launcher-tile {
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-launcher-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06), transparent 55%);
+  opacity: 0.12;
+  pointer-events: none;
 }

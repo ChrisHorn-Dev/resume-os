@@ -5,12 +5,14 @@ import { useWindowStore } from "@/lib/windowStore";
 import { getDockApps, getCenterPosition } from "@/lib/apps";
 import { APP_ICONS } from "@/lib/icons";
 import type { AppId } from "@/lib/types";
+import { useIsMobile } from "@/lib/useMediaQuery";
 
 export default function DesktopIcons() {
   const { openApp, windows, focusWindow, setMinimized, focusedWindowId } =
     useWindowStore();
   const dockApps = getDockApps();
   const [selectedId, setSelectedId] = useState<AppId | null>(null);
+  const isMobile = useIsMobile();
 
   const handleSelect = (appId: AppId) => {
     setSelectedId(appId);
@@ -58,8 +60,10 @@ export default function DesktopIcons() {
           <button
             key={app.id}
             type="button"
-            onClick={() => handleSelect(app.id)}
-            onDoubleClick={() => handleOpen(app.id)}
+            onClick={() =>
+              isMobile ? handleOpen(app.id) : handleSelect(app.id)
+            }
+            onDoubleClick={() => !isMobile && handleOpen(app.id)}
             className="group flex flex-col items-center gap-[5px] rounded-md px-1 py-2 outline-none transition-all duration-200 ease-out hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[var(--accent)]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]"
             aria-label={`Open ${app.title}`}
             style={{

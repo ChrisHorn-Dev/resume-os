@@ -1,11 +1,10 @@
 "use client";
 
-import { useWindowStore } from "@/lib/windowStore";
-import { useIsMobile } from "@/lib/useMediaQuery";
 import { useEffect } from "react";
-import Window from "./Window";
-import MobileAppView from "./MobileAppView";
+import { AnimatePresence, motion } from "framer-motion";
+import { useWindowStore } from "@/lib/windowStore";
 import { getCenterPosition } from "@/lib/apps";
+import Window from "./Window";
 import ResumeApp from "@/components/apps/ResumeApp";
 import ProjectsApp from "@/components/apps/ProjectsApp";
 import TechStackApp from "@/components/apps/TechStackApp";
@@ -26,14 +25,12 @@ const APP_COMPONENTS = {
 
 export default function WindowManager() {
   const { windows, clearFocus, openApp } = useWindowStore();
-  const isMobile = useIsMobile();
 
   useEffect(() => {
-    openApp("welcome", getCenterPosition("welcome"));
+    // Desktop now starts from the launcher; no auto-opened app windows.
     const visited = sessionStorage.getItem("resume-os-visited");
     if (!visited) {
       sessionStorage.setItem("resume-os-visited", "1");
-      openApp("projects", getCenterPosition("projects"));
     }
   }, [openApp]);
 
@@ -50,22 +47,28 @@ export default function WindowManager() {
     return () => document.removeEventListener("mousedown", onMouseDown, true);
   }, [clearFocus]);
 
+  const visibleWindows = windows.filter((w) => !w.isMinimized);
+
   return (
-    <>
-      {isMobile && <MobileAppView />}
-      <div
-        className={`pointer-events-none absolute inset-0 ${isMobile ? "max-md:invisible" : ""}`}
-      >
-        {windows.map((win) => {
-          if (isMobile) return null;
-          const AppComponent = APP_COMPONENTS[win.appId];
-          return (
-            <Window key={win.id} win={win}>
+    <AnimatePresence>
+      {visibleWindows.map((win) => {
+        const AppComponent = APP_COMPONENTS[win.appId];
+        return (
+          <motion.div
+            key={win.id}
+            className="pointer-events-auto"
+            style={{ zIndex: win.zIndex }}
+            initial={{ opacity: 0, scale: 0.97, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 14 }}
+            transition={{ duration: 0.18, ease: [0.2, 0.8, 0.2, 1] }}
+          >
+            <Window win={win}>
               {AppComponent ? <AppComponent /> : null}
             </Window>
-          );
-        })}
-      </div>
-    </>
+          </motion.div>
+        );
+      })}
+    </AnimatePresence>
   );
 }

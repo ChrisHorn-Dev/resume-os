@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { Rnd } from "react-rnd";
-import { motion } from "framer-motion";
 import { useWindowStore } from "@/lib/windowStore";
 import { APP_ICONS } from "@/lib/icons";
 import type { WindowState } from "@/lib/types";
@@ -81,6 +80,7 @@ export default function Window({ win, children }: WindowProps) {
       ref={rndRef}
       position={position}
       size={size}
+      bounds="parent"
       minWidth={320}
       minHeight={240}
       disableDragging={win.isMaximized}
@@ -98,12 +98,7 @@ export default function Window({ win, children }: WindowProps) {
       style={{ zIndex: win.zIndex }}
       data-window-chrome
     >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2, ease: [0.33, 1, 0.68, 1] }}
-        className="flex h-full flex-col"
-      >
+      <div className="flex h-full flex-col">
         <header
           className={`window-drag-handle flex min-h-[40px] shrink-0 items-center gap-3 border-b border-[var(--border)]/50 pl-3 pr-2 pt-1.5 pb-1.5 backdrop-blur-lg ${
             isFocused ? "bg-[var(--window-glass-title-focused)]" : "bg-[var(--window-glass-title)]"
@@ -119,12 +114,10 @@ export default function Window({ win, children }: WindowProps) {
             {win.title}
           </span>
           {/* Window controls (right): minimize, maximize, close — custom glass + subtle glow */}
-          <div
-            className="flex shrink-0 items-center gap-1.5"
-            onMouseDown={(e) => e.stopPropagation()}
-          >
+          <div className="flex shrink-0 items-center gap-1.5">
             <button
               type="button"
+              onMouseDown={(e) => e.stopPropagation()}
               onClick={() => setMinimized(win.id, true)}
               className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-white/5 backdrop-blur-sm transition-all duration-200 ease-[var(--ease-out)] active:scale-95 ${
                 isFocused
@@ -137,6 +130,7 @@ export default function Window({ win, children }: WindowProps) {
             </button>
             <button
               type="button"
+              onMouseDown={(e) => e.stopPropagation()}
               onClick={() => setMaximized(win.id, !win.isMaximized)}
               className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-white/5 backdrop-blur-sm transition-all duration-200 ease-[var(--ease-out)] active:scale-95 ${
                 isFocused
@@ -149,6 +143,7 @@ export default function Window({ win, children }: WindowProps) {
             </button>
             <button
               type="button"
+              onMouseDown={(e) => e.stopPropagation()}
               onClick={() => closeWindow(win.id)}
               className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-white/5 backdrop-blur-sm transition-all duration-200 ease-[var(--ease-out)] active:scale-95 ${
                 isFocused
@@ -170,7 +165,7 @@ export default function Window({ win, children }: WindowProps) {
         >
           {children}
         </div>
-      </motion.div>
+      </div>
     </Rnd>
   );
 }

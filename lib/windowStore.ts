@@ -1,8 +1,9 @@
 import { create } from "zustand";
 import type { WindowState } from "./types";
-import { getAppById } from "./apps";
+import { getAppById, MENU_BAR_HEIGHT, TASKBAR_HEIGHT } from "./apps";
 
-let nextZ = 1;
+// Start windows above the menu bar (z-100) and icons/taskbar layers
+let nextZ = 200;
 const genId = () => `win_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
 interface WindowManagerState {
@@ -42,13 +43,29 @@ export const useWindowStore = create<WindowManagerState>((set, get) => ({
     }
     const id = genId();
     const z = get().getNextZIndex();
+    const baseSize = app.defaultSize;
+
+    let size = baseSize;
+    if (typeof window !== "undefined") {
+      const maxWidth = Math.max(320, window.innerWidth - 32);
+      const maxHeight = Math.max(
+        240,
+        window.innerHeight - MENU_BAR_HEIGHT - TASKBAR_HEIGHT - 32
+      );
+
+      size = {
+        w: Math.min(baseSize.w, maxWidth),
+        h: Math.min(baseSize.h, maxHeight),
+      };
+    }
+
     const position = overridePosition ?? app.defaultPosition ?? { x: 100, y: 80 };
     const newWindow: WindowState = {
       id,
       appId,
       title: app.title,
       position,
-      size: app.defaultSize,
+      size,
       zIndex: z,
       isMinimized: false,
       isMaximized: false,
