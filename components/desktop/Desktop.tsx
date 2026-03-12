@@ -8,7 +8,7 @@ export default function Desktop() {
     >
       {/* Deep navy/charcoal base with layered radial bloom */}
       <div
-        className="absolute inset-0"
+        className="desktop-wallpaper-layer absolute inset-0"
         style={{
           background: `
             radial-gradient(ellipse 110% 80% at 50% 30%, rgba(28, 34, 54, 0.75) 0%, transparent 55%),
@@ -22,7 +22,7 @@ export default function Desktop() {
       />
       {/* Extremely subtle grid */}
       <div
-        className="absolute inset-0 opacity-[0.015]"
+        className="desktop-wallpaper-grid absolute inset-0 opacity-[0.015]"
         style={{
           backgroundImage: `
             linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
@@ -33,7 +33,7 @@ export default function Desktop() {
       />
       {/* Darkened corners for depth */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="desktop-wallpaper-vignette pointer-events-none absolute inset-0"
         style={{
           boxShadow: "inset 0 0 140px rgba(0,0,0,0.35)",
         }}

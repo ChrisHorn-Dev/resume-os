@@ -96,7 +96,7 @@ export default function MobileShell() {
       </div>
 
       <div
-        className="relative z-10 flex h-full min-h-[100dvh] flex-col bg-gradient-to-b from-black/40 via-black/20 to-black/40 pt-[env(safe-area-inset-top)] pb-[calc(env(safe-area-inset-bottom)+3.5rem)]"
+        className="chrisos-mobile-shell-tint relative z-10 flex h-full min-h-[100dvh] flex-col pt-[env(safe-area-inset-top)] pb-[calc(env(safe-area-inset-bottom)+3.5rem)]"
         style={{ minHeight: "100dvh" }}
       >
         <MobileTopBar />

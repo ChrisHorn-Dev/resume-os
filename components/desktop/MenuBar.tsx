@@ -5,7 +5,8 @@ import { useWindowStore } from "@/lib/windowStore";
 import { getCenterPosition } from "@/lib/apps";
 import { socialLinks } from "@/content/social";
 import type { AppId } from "@/lib/types";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Sun, Moon } from "lucide-react";
+import { useThemeStore } from "@/lib/themeStore";
 
 function useTime() {
   const [time, setTime] = useState("");
@@ -30,6 +31,21 @@ export default function MenuBar() {
   const { openApp, windows, focusWindow, minimizeAll, closeAllWindows } = useWindowStore();
   const clock = useTime();
   const ref = useRef<HTMLDivElement>(null);
+  const toggleTheme = useThemeStore((s) => s.toggle);
+  const preference = useThemeStore((s) => s.preference);
+  const [systemDark, setSystemDark] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+  useEffect(() => {
+    if (preference !== "system") return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const update = () => setSystemDark(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [preference]);
+  const resolvedTheme =
+    preference === "system" ? (systemDark ? "dark" : "light") : preference;
 
   useEffect(() => {
     const onMouseDown = (e: MouseEvent) => {
@@ -162,6 +178,18 @@ export default function MenuBar() {
         ))}
       </div>
       <div className="flex items-center gap-1.5">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="rounded p-1 text-[var(--foreground)]/70 transition-colors hover:bg-white/[0.08] hover:text-[var(--foreground)]"
+          aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {resolvedTheme === "dark" ? (
+            <Sun size={13} className="text-amber-400/90" />
+          ) : (
+            <Moon size={13} className="text-indigo-500/90" />
+          )}
+        </button>
         <a
           href={socialLinks.github}
           target="_blank"

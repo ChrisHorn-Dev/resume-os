@@ -179,7 +179,7 @@ function StatusPill({
     "case-study":
       "bg-amber-500/15 text-amber-400/90 border-amber-500/25",
     live: "bg-emerald-500/15 text-emerald-400/90 border-emerald-500/25",
-    private: "bg-zinc-700/60 text-zinc-400 border-[var(--border)]",
+    private: "chrisos-pill-private bg-zinc-700/60 text-zinc-400 border-[var(--border)]",
     interface:
       "bg-sky-500/15 text-sky-300/90 border-sky-500/30",
   };
@@ -225,12 +225,12 @@ export default function ProjectsApp() {
         <button
           type="button"
           onClick={() => setSelectedId(null)}
-          className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.02] px-2.5 py-1 text-[11px] text-zinc-300 underline-offset-4 transition hover:bg-white/[0.05] hover:text-[var(--foreground)] hover:underline"
+          className="chrisos-back-pill inline-flex items-center gap-1.5 rounded-full bg-white/[0.02] px-2.5 py-1 text-[11px] text-zinc-300 underline-offset-4 transition hover:bg-white/[0.05] hover:text-[var(--foreground)] hover:underline"
         >
           <ChevronLeft size={14} />
           <span>Back to projects</span>
         </button>
-        <section className="mt-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)]/95 p-4 text-sm text-zinc-200 shadow-[0_18px_45px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
+        <section className="chrisos-project-detail mt-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)]/95 p-4 text-sm text-zinc-200 shadow-[0_18px_45px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <h3 className="text-[15px] font-semibold text-[var(--foreground)]">
@@ -318,7 +318,7 @@ export default function ProjectsApp() {
                       href={l.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center rounded-full border border-[var(--border)]/80 bg-transparent px-3 py-1.5 text-[12px] text-zinc-200 underline-offset-4 transition hover:border-[var(--accent)]/60 hover:bg-white/[0.04] hover:text-[var(--accent)] hover:underline"
+                      className="chrisos-link-pill inline-flex items-center rounded-full border border-[var(--border)]/80 bg-transparent px-3 py-1.5 text-[12px] text-zinc-200 underline-offset-4 transition hover:border-[var(--accent)]/60 hover:bg-white/[0.04] hover:text-[var(--accent)] hover:underline"
                     >
                       {l.label}
                     </a>
@@ -348,7 +348,7 @@ export default function ProjectsApp() {
         <h2 className="text-[13px] font-semibold tracking-tight text-[var(--foreground)]">
           Projects
         </h2>
-        <p className="mt-1 text-[11px] text-zinc-400">
+        <p className="mt-1 text-[11px] text-[color:var(--muted)]">
           Selected systems and products I&apos;ve built.
         </p>
       </div>
@@ -365,7 +365,7 @@ export default function ProjectsApp() {
                 setSelectedId(p.id);
               }
             }}
-            className={`group cursor-pointer rounded-xl border bg-[var(--surface-elevated)]/90 p-4 transition-all duration-200 hover:border-zinc-600 hover:bg-[var(--surface-elevated)]/95 hover:shadow-[0_18px_45px_rgba(0,0,0,0.55)] ${
+            className={`chrisos-project-card group cursor-pointer rounded-xl border bg-[var(--surface-elevated)]/90 p-4 transition-all duration-200 hover:border-zinc-600 hover:bg-[var(--surface-elevated)]/95 hover:shadow-[0_18px_45px_rgba(0,0,0,0.55)] ${
               p.featured
                 ? "border-[var(--border)] shadow-[0_14px_40px_rgba(0,0,0,0.55)] ring-1 ring-[var(--accent)]/12"
                 : "border-[var(--border-subtle)] shadow-[0_10px_32px_rgba(0,0,0,0.45)]"
@@ -376,7 +376,7 @@ export default function ProjectsApp() {
                 <h3 className="text-[15px] font-semibold text-[var(--foreground)]">
                   {p.name}
                 </h3>
-                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-zinc-400">
+                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-[color:var(--muted)]">
                   {p.description}
                 </p>
               </div>
@@ -397,14 +397,14 @@ export default function ProjectsApp() {
               {p.tech.map((t) => (
                 <span
                   key={t}
-                  className="rounded-md bg-zinc-800/70 px-2.5 py-0.5 text-[11px] text-zinc-300"
+                  className="chrisos-tech-tag rounded-md bg-zinc-800/70 px-2.5 py-0.5 text-[11px] text-zinc-300"
                 >
                   {t}
                 </span>
               ))}
             </div>
             <div className="mt-4 flex justify-center">
-              <span className="text-[11px] text-zinc-500 transition-colors group-hover:text-zinc-300">
+              <span className="chrisos-view-details text-[11px] text-zinc-500 transition-colors group-hover:text-zinc-300">
                 View details →
               </span>
             </div>

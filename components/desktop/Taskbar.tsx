@@ -47,7 +47,7 @@ export default function Taskbar() {
 
   return (
     <footer
-      className="absolute bottom-0 left-0 right-0 flex h-14 items-center gap-2 border-t border-[var(--border-subtle)]/80 bg-[var(--surface)]/85 px-2 backdrop-blur-xl"
+      className="chrisos-dock absolute bottom-0 left-0 right-0 flex h-14 items-center gap-2 border-t border-[var(--border-subtle)]/80 bg-[var(--surface)]/85 px-2 backdrop-blur-xl"
       role="toolbar"
       aria-label="Dock"
     >

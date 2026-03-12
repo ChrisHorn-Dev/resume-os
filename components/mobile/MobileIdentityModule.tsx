@@ -9,7 +9,7 @@ export default function MobileIdentityModule() {
       className="flex justify-center pb-3 sm:pb-4"
     >
       <div
-        className="flex w-full max-w-md flex-col items-center rounded-2xl bg-black/4 text-center text-[11px] text-zinc-400 backdrop-blur-xl shadow-[0_3px_14px_rgba(0,0,0,0.35)] sm:max-w-lg"
+        className="chrisos-identity-card flex w-full max-w-md flex-col items-center rounded-2xl bg-black/4 text-center text-[11px] text-zinc-400 backdrop-blur-xl shadow-[0_3px_14px_rgba(0,0,0,0.35)] sm:max-w-lg"
         style={{
           maxWidth: "var(--mobile-home-card-max-width)",
           paddingBlock: "var(--mobile-home-card-padding-y)",
@@ -45,7 +45,7 @@ export default function MobileIdentityModule() {
           href={socialLinks.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[11px] text-zinc-300 underline-offset-4 transition-colors hover:text-[var(--foreground)] hover:underline"
+          className="chrisos-identity-cta text-[11px] text-zinc-300 underline-offset-4 transition-colors hover:text-[var(--foreground)] hover:underline"
         >
           View LinkedIn →
         </a>

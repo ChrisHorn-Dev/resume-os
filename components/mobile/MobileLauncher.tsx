@@ -30,7 +30,7 @@ export default function MobileLauncher() {
         style={{ gap: "var(--mobile-home-stack-gap)" }}
       >
         <div className="flex justify-center">
-          <div className="rounded-full border border-white/[0.05] bg-white/[0.03] px-3.5 py-1.5 text-[11px] text-zinc-300 shadow-[0_10px_30px_rgba(0,0,0,0.7)] backdrop-blur-2xl">
+          <div className="chrisos-launcher-chip rounded-full border border-white/[0.05] bg-white/[0.03] px-3.5 py-1.5 text-[11px] text-zinc-300 shadow-[0_10px_30px_rgba(0,0,0,0.7)] backdrop-blur-2xl">
             Explore the workspace
           </div>
         </div>
@@ -43,10 +43,10 @@ export default function MobileLauncher() {
               key={app.id}
               type="button"
               onClick={() => handleOpen(app.id)}
-              className="mobile-launcher-tile group flex flex-col items-stretch rounded-2xl border border-white/[0.06] bg-white/[0.04] p-3.5 text-left text-[var(--foreground)] shadow-[0_18px_45px_rgba(0,0,0,0.78)] backdrop-blur-2xl transition-all duration-200 ease-[var(--ease-out)] hover:-translate-y-[2px] active:translate-y-0 active:scale-[0.98] hover:border-white/[0.16] hover:bg-white/[0.09]"
+              className="chrisos-app-tile mobile-launcher-tile group flex flex-col items-stretch rounded-2xl border border-white/[0.06] bg-white/[0.04] p-3.5 text-left text-[var(--foreground)] shadow-[0_18px_45px_rgba(0,0,0,0.78)] backdrop-blur-2xl transition-all duration-200 ease-[var(--ease-out)] hover:-translate-y-[2px] active:translate-y-0 active:scale-[0.98] hover:border-white/[0.16] hover:bg-white/[0.09]"
             >
               <div className="mb-3 flex items-center gap-2.5">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/[0.08] shadow-[0_0_18px_rgba(0,0,0,0.7)] ring-1 ring-white/[0.16]">
+                <div className="chrisos-icon-well flex h-11 w-11 items-center justify-center rounded-2xl bg-white/[0.08] shadow-[0_0_18px_rgba(0,0,0,0.7)] ring-1 ring-white/[0.16]">
                   {Icon && (
                     <Icon
                       size={24}

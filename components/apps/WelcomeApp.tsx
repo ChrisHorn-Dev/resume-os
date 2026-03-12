@@ -19,7 +19,7 @@ export default function WelcomeApp() {
       <h1 className="text-3xl font-semibold tracking-tight text-[var(--foreground)]">
         Chris Horn
       </h1>
-      <p className="mt-3 max-w-md text-[15px] leading-relaxed text-zinc-400">
+      <p className="mt-3 max-w-md text-[15px] leading-relaxed text-[color:var(--muted)]">
         Product-focused developer building operational SaaS platforms and
         real-world software systems.
       </p>
@@ -39,7 +39,7 @@ export default function WelcomeApp() {
           Open Resume
         </button>
       </div>
-      <p className="mt-8 text-xs text-zinc-500">
+      <p className="mt-8 text-xs text-[color:var(--muted)]">
         Use the dock or desktop icons to open Tech Stack, About, and more.
       </p>
     </div>
