@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { socialLinks } from "@/content/social";
 
 export default function MobileIdentityModule() {
@@ -24,10 +25,13 @@ export default function MobileIdentityModule() {
             height: "var(--mobile-home-avatar-size)",
           }}
         >
-          <img
+          <Image
             src="/avatar-chris-bw.jpg"
             alt="Chris Horn"
-            className="h-full w-full object-cover grayscale"
+            fill
+            sizes="96px"
+            className="object-cover grayscale"
+            priority
           />
         </div>
         <div className="flex flex-col items-center gap-0.5">

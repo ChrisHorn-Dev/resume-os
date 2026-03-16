@@ -10,14 +10,6 @@ import {
 } from "@/content/projectDeepDives";
 import type { ProjectId } from "@/content/projects";
 
-type DeepDiveSectionId =
-  | "overview"
-  | "architecture"
-  | "flow"
-  | "code"
-  | "decisions"
-  | "future";
-
 const FEATURED_PROJECTS: ProjectId[] = [
   "media-auth-api",
   "physician-connection",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Desktop from "@/components/desktop/Desktop";
 import BootScreen from "@/components/desktop/BootScreen";
 import MobileTopBar from "@/components/mobile/MobileTopBar";
@@ -15,9 +15,11 @@ export default function MobileShell() {
   const { windows, focusedWindowId, closeWindow } = useWindowStore();
   const mode = useViewportMode();
   const [entryAnimationDone, setEntryAnimationDone] = useState(false);
-  const entryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [entryTimeoutId, setEntryTimeoutId] = useState<ReturnType<typeof setTimeout> | null>(null);
   /** Frozen layout viewport size when terminal opens; overlay never resizes on keyboard so no blank gap */
-  const terminalOverlaySizeRef = useRef<{ w: number; h: number } | null>(null);
+  const [terminalOverlaySize, setTerminalOverlaySize] = useState<{ w: number; h: number } | null>(
+    null,
+  );
 
   const nonMinimized = windows.filter((w) => !w.isMinimized);
   const activeWin =
@@ -26,38 +28,51 @@ export default function MobileShell() {
   const isMobile = mode === "mobile";
   const isTerminalActive = isMobile && activeWin?.appId === "terminal";
 
-  // Clear frozen size when leaving terminal so next open captures fresh layout viewport
-  useEffect(() => {
-    if (!isTerminalActive) {
-      terminalOverlaySizeRef.current = null;
-    }
-  }, [isTerminalActive]);
-
   // Run entry animation only once when overlay first mounts; then static (no re-entry on refocus)
   useEffect(() => {
     if (!isTerminalActive || !activeWin) return;
     if (entryAnimationDone) return;
-    entryTimeoutRef.current = setTimeout(() => {
-      setEntryAnimationDone(true);
-      entryTimeoutRef.current = null;
+    const id = setTimeout(() => {
+      queueMicrotask(() => {
+        setEntryAnimationDone(true);
+      });
     }, 200);
+    queueMicrotask(() => {
+      setEntryTimeoutId(id);
+    });
     return () => {
-      if (entryTimeoutRef.current) {
-        clearTimeout(entryTimeoutRef.current);
-        entryTimeoutRef.current = null;
-      }
+      clearTimeout(id);
     };
   }, [isTerminalActive, activeWin?.id, entryAnimationDone]);
 
   // Reset entry state when leaving terminal so next open gets the animation
   useEffect(() => {
     if (!isTerminalActive) {
-      setEntryAnimationDone(false);
-      if (entryTimeoutRef.current) {
-        clearTimeout(entryTimeoutRef.current);
-        entryTimeoutRef.current = null;
+      queueMicrotask(() => {
+        setEntryAnimationDone(false);
+      });
+      if (entryTimeoutId) {
+        clearTimeout(entryTimeoutId);
       }
     }
+  }, [isTerminalActive, entryTimeoutId]);
+
+  // Capture frozen overlay size when terminal becomes active
+  useEffect(() => {
+    if (!isTerminalActive) {
+      queueMicrotask(() => {
+        setTerminalOverlaySize(null);
+      });
+      return;
+    }
+    if (typeof window === "undefined") return;
+    const size = {
+      w: window.innerWidth,
+      h: window.innerHeight,
+    };
+    queueMicrotask(() => {
+      setTerminalOverlaySize(size);
+    });
   }, [isTerminalActive]);
 
   useEffect(() => {
@@ -110,32 +125,18 @@ export default function MobileShell() {
         <MobileSystemBar />
       </div>
 
-      {isTerminalActive && activeWin && (() => {
-        const size =
-          typeof window !== "undefined"
-            ? terminalOverlaySizeRef.current ||
-              (terminalOverlaySizeRef.current = {
-                w: window.innerWidth,
-                h: window.innerHeight,
-              })
-            : null;
-        return (
+      {isTerminalActive && activeWin && terminalOverlaySize && (
           <div
             className={
               entryAnimationDone
                 ? "fixed left-0 top-0 z-20 bg-[#0d0d0f]"
                 : "mobile-terminal-enter fixed left-0 top-0 z-20 bg-[#0d0d0f]"
             }
-            style={
-              size
-                ? { width: size.w, height: size.h }
-                : { inset: 0 }
-            }
+            style={{ width: terminalOverlaySize.w, height: terminalOverlaySize.h }}
           >
             <MobileTerminalScene win={activeWin} onClose={handleCloseTerminal} />
           </div>
-        );
-      })()}
+      )}
     </div>
   );
 }

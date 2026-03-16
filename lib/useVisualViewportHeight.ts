@@ -12,7 +12,9 @@ export function useVisualViewportHeight(): number {
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) {
-      setHeight(window.innerHeight);
+      queueMicrotask(() => {
+        setHeight(window.innerHeight);
+      });
       return;
     }
 
@@ -56,11 +58,13 @@ export function useVisualViewportRect(): {
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) {
-      setRect({
-        top: 0,
-        left: 0,
-        width: window.innerWidth,
-        height: window.innerHeight,
+      queueMicrotask(() => {
+        setRect({
+          top: 0,
+          left: 0,
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
       });
       return;
     }
@@ -103,7 +107,9 @@ export function useFixedOverlayRect(anchorRef: RefObject): { top: number; height
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) {
-      setRect({ top: 0, height: window.innerHeight });
+      queueMicrotask(() => {
+        setRect({ top: 0, height: window.innerHeight });
+      });
       return;
     }
 
@@ -141,7 +147,9 @@ export function useVisualViewportContentHeight(headerRef: RefObject): number {
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) {
-      setHeight(window.innerHeight);
+      queueMicrotask(() => {
+        setHeight(window.innerHeight);
+      });
       return;
     }
 

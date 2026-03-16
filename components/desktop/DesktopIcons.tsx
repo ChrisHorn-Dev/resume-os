@@ -42,7 +42,11 @@ export default function DesktopIcons() {
   const selected = selectedId ?? focusedAppId;
 
   useEffect(() => {
-    if (focusedWindowId === null) setSelectedId(null);
+    if (focusedWindowId === null) {
+      queueMicrotask(() => {
+        setSelectedId(null);
+      });
+    }
   }, [focusedWindowId]);
 
   return (
