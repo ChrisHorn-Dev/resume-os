@@ -64,7 +64,7 @@ export default function ResumeApp() {
                 ChrisOS
               </span>
               <span>
-                OS-style portfolio with a desktop window manager, guided terminal, and mobile shell for exploring projects and experience.
+                OS-inspired, desktop-style portfolio shell with a window manager, guided terminal, and mobile shell for exploring projects and experience in the browser.
               </span>
             </li>
           </ul>

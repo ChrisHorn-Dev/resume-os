@@ -1,5 +1,14 @@
+export type ProjectId =
+  | "physician-connection"
+  | "media-auth-api"
+  | "cape-fear-web"
+  | "thank-you-for-dying"
+  | "regal-rides"
+  | "ronald-wayne"
+  | "chrisos";
+
 export interface Project {
-  id: string;
+  id: ProjectId;
   name: string;
   description: string;
   tech: string[];
@@ -21,24 +30,25 @@ export const projects: Project[] = [
     id: "physician-connection",
     name: "Physician Connection Platform",
     description:
-      "Production SaaS platform coordinating appointment workflows between pharmaceutical reps and physician practices.",
-    tech: ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"],
+      "Modular Next.js SaaS application coordinating scheduling workflows between pharmaceutical reps and physician practices.",
+    tech: ["Next.js", "TypeScript", "Tailwind", "Drizzle ORM"],
     label: "case-study",
     featured: true,
     details: {
       overview:
-        "Production SaaS platform connecting pharmaceutical representatives with physician practices to coordinate scheduling, hosted meetings, and approval workflows. The application provides role-based dashboards and appointment workflows for representatives, physicians, and practice administrators.",
+        "Modular Next.js SaaS application that connects pharmaceutical representatives with physician practices through role-based dashboards, scheduling workflows, and operational administration tooling.",
       problem:
-        "The platform had core functionality in place but needed stable end-to-end workflows, clearer role-based behavior, and stronger handling of authentication and protected routes in order to move toward MVP readiness.",
+        "The platform had core flows in place, but role-based routing, scheduling coordination, and operational tooling needed to be tightened so that reps, practices, and admins could rely on the system as it moved toward MVP readiness.",
       solution:
-        "Helped move the product toward MVP readiness by refining representative booking flows, tightening role-based dashboards, and stabilizing authentication and protected access patterns across the application.",
+        "Helped move the product toward MVP readiness by refining rep–practice scheduling workflows, clarifying role-aware dashboards and routing, and stabilizing authentication and protected API routes alongside operational/admin tooling.",
       architecture:
-        "Next.js and TypeScript application with role-based dashboards and protected routes for different user types. Core workflows focus on appointment requests, approval states, and scheduling across representatives, physicians, and practice administrators.",
+        "Next.js and TypeScript application with role-partitioned routing (physician, practice admin, rep, super-admin), domain modules for calendar and messaging, a Drizzle ORM database layer, and protected API routes that back core scheduling and coordination workflows.",
       features: [
-        "Representative booking and appointment request workflows",
-        "Role-based dashboards for reps, physicians, and practice administrators",
-        "Authentication and protected route behavior across multi-role access",
-        "Stabilizing core workflows as the product moved toward MVP readiness",
+        "Role-partitioned dashboards for reps, practice staff, physicians, and super-admins",
+        "Rep–practice scheduling workflows built on Cal.com integration and calendar domain modules",
+        "Messaging and presence features for coordination around visits and access",
+        "Protected API routes and role-aware routing for all major application surfaces",
+        "Operational and super-admin tooling for seeding test data, debugging errors, and managing environments",
       ],
       links: [
         {
@@ -52,7 +62,7 @@ export const projects: Project[] = [
     id: "media-auth-api",
     name: "Media Authenticity API",
     description:
-      "Verification-oriented API for analyzing image authenticity and returning signed results.",
+      "Verification-oriented API that analyzes uploaded images for authenticity and returns signed results plus a verification endpoint.",
     tech: ["Next.js", "TypeScript", "Node.js"],
     link: "https://github.com/ChrisHorn-Dev/media-auth-api",
     label: "case-study",
@@ -63,12 +73,12 @@ export const projects: Project[] = [
       problem:
         "Teams exploring media authenticity often need more than a raw model score. They need a clear API surface, caching, rate limiting, and a way to verify that results actually came from the service and were not tampered with.",
       solution:
-        "Designed and implemented a detector-driven analysis API with single and batch endpoints, file-hash caching, optional ensemble analysis across multiple Hugging Face detectors, and HMAC-signed authenticity records with a dedicated verification route.",
+        "Designed and implemented a detector-driven analysis API with single and batch endpoints, file-hash caching, optional ensemble analysis across a pair of Hugging Face detectors, and HMAC-signed authenticity records with a dedicated verification route.",
       architecture:
-        "Next.js API routes in TypeScript organized around an orchestrator, detector registry, and cache. Requests pass through validation, hashing, cache lookup, detector execution, and signing. Responses use a structured record that captures verdict, detectors, and media, alongside a signature that can be checked via POST /api/verify. Optional API keys and in-memory rate limiting protect the surface area.",
+        "Next.js API routes in TypeScript organized around an orchestrator, detector registry, and cache. Requests pass through validation, hashing, cache lookup, detector execution via the Hugging Face Inference API, and signing. Responses use a structured record that captures verdict, detectors, and media alongside a signature that can be checked via POST /api/verify. Optional API keys, in-memory rate limiting, and a simple health endpoint protect and monitor the surface area.",
       features: [
         "Single and batch image analysis endpoints with size and dimension validation",
-        "Detector abstraction with support for single-detector and ensemble analysis modes",
+        "Detector abstraction with support for single-detector and ensemble analysis modes across registered image detectors",
         "File-hash caching with configurable TTL and optional file-backed persistence",
         "Signed authenticity records and a POST /api/verify endpoint for independent verification",
         "Optional API key enforcement and per-key/IP rate limiting with consistent error shapes",
@@ -138,18 +148,18 @@ export const projects: Project[] = [
     id: "chrisos",
     name: "ChrisOS",
     description:
-      "Experimental OS-style portfolio with a desktop window manager, terminal, and mobile shell.",
+      "Experimental desktop-style portfolio built as a browser-based windowed workspace with a terminal and mobile shell.",
     tech: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     label: "interface",
     featured: true,
     link: undefined,
     details: {
       overview:
-        "OS-inspired portfolio that treats projects, resume, and tech stack as applications inside a desktop and mobile shell.",
+        "OS-inspired portfolio that treats projects, resume, and tech stack as applications inside a desktop-style and mobile shell in the browser.",
       problem:
         "Traditional resume sites flatten a developer into static sections and fail to show how they think about systems, UX, and product craft.",
       solution:
-        "Designed ChrisOS as a small operating system: a desktop, dock, terminal, and mobile shell that expose projects, resume, and tech stack as first-class apps.",
+        "Designed ChrisOS as a browser-based desktop-style workspace: a windowed shell, dock, terminal, and mobile experience that expose projects, resume, and tech stack as first-class apps.",
       architecture:
         "Next.js App Router with a shared window store, TypeScript throughout, Tailwind for design tokens, and Framer Motion for subtle transitions.",
       features: [
