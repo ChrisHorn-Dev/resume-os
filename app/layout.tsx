@@ -14,23 +14,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chris Horn — Resume",
+  title: "ChrisOS — Chris Horn",
   description:
-    "Product-focused software engineer. Operational SaaS, dashboards, and full-stack web applications.",
+    "ChrisOS is an OS-inspired portfolio for Chris Horn, a product-focused software engineer building operational SaaS, dashboards, and full-stack web applications.",
   openGraph: {
-    title: "Chris Horn — Resume",
+    title: "ChrisOS — Chris Horn",
     description:
-      "Product-focused software engineer. Operational SaaS, dashboards, and full-stack web applications.",
+      "Explore ChrisOS, an operating-system style portfolio showcasing Chris Horn's work in operational SaaS, dashboards, and full-stack web applications.",
     type: "website",
+    url: "https://chrisos.dev",
   },
   twitter: {
     card: "summary",
-    title: "Chris Horn — Resume",
+    title: "ChrisOS — Chris Horn",
     description:
-      "Product-focused software engineer. Operational SaaS, dashboards, and full-stack web applications.",
+      "ChrisOS is an OS-inspired portfolio for Chris Horn, focused on operational SaaS, dashboards, and full-stack web applications.",
   },
   robots: "index, follow",
-  themeColor: "#16161a",
 };
 
 export const viewport = {
