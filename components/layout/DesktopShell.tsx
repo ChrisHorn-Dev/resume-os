@@ -10,8 +10,8 @@ import BootScreen from "@/components/desktop/BootScreen";
 import { MENU_BAR_HEIGHT, TASKBAR_HEIGHT } from "@/lib/apps";
 
 export default function DesktopShell() {
-  const { windows } = useWindowStore();
-  const hasActiveWindows = windows.some((w) => !w.isMinimized);
+  const { windows, focusedWindowId } = useWindowStore();
+  const hasFocusedWindow = focusedWindowId != null;
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-[var(--background)]">
@@ -26,11 +26,11 @@ export default function DesktopShell() {
       <div
         className="absolute left-0 right-0 z-[80]"
         style={{ top: MENU_BAR_HEIGHT, bottom: TASKBAR_HEIGHT }}
-        aria-hidden={hasActiveWindows}
+        aria-hidden={hasFocusedWindow}
       >
         <div
           className={`flex h-full items-center justify-center px-4 transition-all duration-200 ease-[var(--ease-out)] ${
-            hasActiveWindows
+            hasFocusedWindow
               ? "pointer-events-none opacity-50 [filter:blur(2px)]"
               : "pointer-events-auto opacity-100 filter-none"
           }`}

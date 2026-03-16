@@ -47,8 +47,7 @@ export default function WindowManager() {
         return (
           <motion.div
             key={win.id}
-            className="pointer-events-auto absolute inset-0"
-            style={{ zIndex: win.zIndex }}
+            className="pointer-events-none"
             initial={{ opacity: 0, scale: 0.97, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 14 }}

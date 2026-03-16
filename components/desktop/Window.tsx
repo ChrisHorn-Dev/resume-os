@@ -81,7 +81,7 @@ export default function Window({ win, children }: WindowProps) {
       ref={rndRef}
       position={position}
       size={size}
-      bounds="parent"
+      bounds="[data-window-layer]"
       minWidth={320}
       minHeight={240}
       disableDragging={win.isMaximized}
