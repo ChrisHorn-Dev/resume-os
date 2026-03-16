@@ -164,9 +164,11 @@ function PhysicianDemo() {
   );
 }
 import { projects } from "@/content/projects";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ArrowRight } from "lucide-react";
 import { useWindow } from "@/lib/WindowContext";
 import { useProjectsEntryStore } from "@/lib/projectsEntryStore";
+import { useWindowStore } from "@/lib/windowStore";
+import { useViewportMode } from "@/lib/useViewportMode";
 
 function StatusPill({
   label,
@@ -208,6 +210,18 @@ export default function ProjectsApp() {
   const win = useWindow();
   const initialProjectIdFromStore = useProjectsEntryStore((s) => s.initialProjectId);
   const setInitialProjectId = useProjectsEntryStore((s) => s.setInitialProjectId);
+  const { openApp } = useWindowStore();
+  const mode = useViewportMode();
+  const isMobile = mode === "mobile";
+
+  const CARD_SUMMARY: Record<(typeof curatedOrder)[number], string> = {
+    "physician-connection":
+      "Operational SaaS for rep–practice scheduling with multi-role dashboards and appointment workflows.",
+    "media-auth-api":
+      "Verification API for image authenticity with detector orchestration, caching, and signed HMAC records.",
+    chrisos:
+      "OS-style portfolio shell that models windows, terminal, and mobile UI as a shared system surface.",
+  };
 
   useEffect(() => {
     const initialId =
@@ -343,13 +357,13 @@ export default function ProjectsApp() {
   }
 
   return (
-    <div className="p-4">
-      <div className="mb-3.5">
+    <div className="p-3.5 sm:p-4">
+      <div className="mb-3">
         <h2 className="text-[13px] font-semibold tracking-tight text-[var(--foreground)]">
           Projects
         </h2>
         <p className="mt-1 text-[11px] text-[color:var(--muted)]">
-          Selected systems and products I&apos;ve built.
+          Three core systems across SaaS workflows, verification APIs, and frontend interface engineering.
         </p>
       </div>
       <ul className="space-y-3.5">
@@ -358,14 +372,24 @@ export default function ProjectsApp() {
             key={p.id}
             role="button"
             tabIndex={0}
-            onClick={() => setSelectedId(p.id)}
+            onClick={() => {
+              if (isMobile && (p.id === "media-auth-api" || p.id === "physician-connection" || p.id === "chrisos")) {
+                openApp("deepdive", { payload: { projectId: p.id } });
+                return;
+              }
+              setSelectedId(p.id);
+            }}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                setSelectedId(p.id);
+                if (isMobile && (p.id === "media-auth-api" || p.id === "physician-connection" || p.id === "chrisos")) {
+                  openApp("deepdive", { payload: { projectId: p.id } });
+                } else {
+                  setSelectedId(p.id);
+                }
               }
             }}
-            className={`chrisos-project-card group cursor-pointer rounded-xl border bg-[var(--surface-elevated)]/90 p-4 transition-all duration-200 hover:border-zinc-600 hover:bg-[var(--surface-elevated)]/95 hover:shadow-[0_18px_45px_rgba(0,0,0,0.55)] ${
+            className={`chrisos-project-card group cursor-pointer rounded-xl border bg-[var(--surface-elevated)]/90 px-3.5 py-3.25 sm:p-4 transition-all duration-200 hover:border-zinc-600 hover:bg-[var(--surface-elevated)]/95 hover:shadow-[0_18px_45px_rgba(0,0,0,0.55)] ${
               p.featured
                 ? "border-[var(--border)] shadow-[0_14px_40px_rgba(0,0,0,0.55)] ring-1 ring-[var(--accent)]/12"
                 : "border-[var(--border-subtle)] shadow-[0_10px_32px_rgba(0,0,0,0.45)]"
@@ -376,8 +400,8 @@ export default function ProjectsApp() {
                 <h3 className="text-[15px] font-semibold text-[var(--foreground)]">
                   {p.name}
                 </h3>
-                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-[color:var(--muted)]">
-                  {p.description}
+                <p className="mt-1.5 line-clamp-2 text-[13px] leading-snug text-[color:var(--muted)]">
+                  {CARD_SUMMARY[p.id as (typeof curatedOrder)[number]] ?? p.description}
                 </p>
               </div>
               <StatusPill
@@ -393,7 +417,7 @@ export default function ProjectsApp() {
                 variant={p.label}
               />
             </div>
-            <div className="mt-3.5 flex flex-wrap gap-x-2 gap-y-1.5">
+            <div className="mt-2.5 flex flex-wrap gap-x-2 gap-y-1.5">
               {p.tech.map((t) => (
                 <span
                   key={t}
@@ -403,10 +427,32 @@ export default function ProjectsApp() {
                 </span>
               ))}
             </div>
-            <div className="mt-4 flex justify-center">
-              <span className="chrisos-view-details text-[11px] text-zinc-500 transition-colors group-hover:text-zinc-300">
-                View details →
-              </span>
+            <div className="mt-3 flex items-center justify-between gap-2">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openApp("deepdive", {
+                    payload: { projectId: p.id },
+                  });
+                }}
+                className="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.25 text-[11px] font-medium text-[var(--accent)] transition-all duration-150 border-[color:rgba(var(--accent-rgb),0.45)] bg-[radial-gradient(circle_at_0%_0%,rgba(255,255,255,0.06),rgba(255,255,255,0.0)),linear-gradient(to_bottom,rgba(255,255,255,0.02),rgba(255,255,255,0.01))] shadow-[0_0_0_1px_rgba(var(--accent-rgb),0.15)_inset] hover:border-[color:rgba(var(--accent-rgb),0.65)] hover:bg-[radial-gradient(circle_at_0%_0%,rgba(255,255,255,0.08),rgba(255,255,255,0.0)),linear-gradient(to_bottom,rgba(255,255,255,0.04),rgba(255,255,255,0.02))]"
+              >
+                <span>Open deep dive</span>
+                <ArrowRight size={12} className="shrink-0" />
+              </button>
+              {p.details && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedId(p.id);
+                  }}
+                  className="chrisos-view-details whitespace-nowrap text-[11px] text-zinc-500 underline-offset-4 hover:text-zinc-300 hover:underline"
+                >
+                  Overview
+                </button>
+              )}
             </div>
           </li>
         ))}
