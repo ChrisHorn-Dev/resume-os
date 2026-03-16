@@ -193,7 +193,7 @@ function StatusPill({
 }
 
 export default function ProjectsApp() {
-  const curatedOrder = ["physician-connection", "cape-fear-web", "chrisos"] as const;
+  const curatedOrder = ["physician-connection", "media-auth-api", "chrisos"] as const;
   const curated = projects
     .filter((p) => curatedOrder.includes(p.id as (typeof curatedOrder)[number]))
     .sort(
