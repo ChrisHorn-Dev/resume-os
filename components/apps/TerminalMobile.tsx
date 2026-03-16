@@ -72,13 +72,20 @@ export default function TerminalMobile() {
       setInitialProjectId(action.projectId);
     }
     const pos =
-      action.appId === "projects" || action.appId === "about"
+      action.appId === "projects" ||
+      action.appId === "about" ||
+      action.appId === "deepdive"
         ? getCenterPosition(action.appId)
         : undefined;
     const payload =
       action.appId === "projects" && action.projectId
         ? { projectId: action.projectId }
-        : undefined;
+        : action.appId === "deepdive" && action.projectId
+          ? {
+              projectId: action.projectId,
+              ...(action.sectionId ? { sectionId: action.sectionId } : {}),
+            }
+          : undefined;
     openApp(action.appId, { position: pos, payload });
   };
 

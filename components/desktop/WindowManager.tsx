@@ -11,6 +11,7 @@ import AboutApp from "@/components/apps/AboutApp";
 import ContactApp from "@/components/apps/ContactApp";
 import WelcomeApp from "@/components/apps/WelcomeApp";
 import TerminalApp from "@/components/apps/TerminalApp";
+import ProjectDeepDiveApp from "@/components/apps/ProjectDeepDiveApp";
 
 const APP_COMPONENTS = {
   welcome: WelcomeApp,
@@ -20,6 +21,7 @@ const APP_COMPONENTS = {
   about: AboutApp,
   contact: ContactApp,
   terminal: TerminalApp,
+  deepdive: ProjectDeepDiveApp,
 } as const;
 
 export default function WindowManager() {

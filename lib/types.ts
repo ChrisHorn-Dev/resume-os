@@ -5,7 +5,8 @@ export type AppId =
   | "about"
   | "contact"
   | "welcome"
-  | "terminal";
+  | "terminal"
+  | "deepdive";
 
 export interface WindowState {
   id: string;

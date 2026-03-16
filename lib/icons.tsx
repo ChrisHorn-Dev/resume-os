@@ -18,4 +18,5 @@ export const APP_ICONS: Record<AppId, LucideIcon> = {
   about: User,
   contact: Mail,
   terminal: Terminal,
+  deepdive: Layers,
 };

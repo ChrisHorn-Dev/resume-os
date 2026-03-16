@@ -68,6 +68,14 @@ export const APPS: AppConfig[] = [
     defaultPosition: { x: 280, y: 80 },
     showInDock: true,
   },
+  {
+    id: "deepdive",
+    title: "Project Deep Dives",
+    icon: "Layers",
+    defaultSize: { w: 860, h: 560 },
+    defaultPosition: undefined,
+    showInDock: false,
+  },
 ];
 
 export const getAppById = (id: AppConfig["id"]) => APPS.find((a) => a.id === id);

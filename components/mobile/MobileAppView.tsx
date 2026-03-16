@@ -8,6 +8,7 @@ import AboutApp from "@/components/apps/AboutApp";
 import ContactApp from "@/components/apps/ContactApp";
 import WelcomeApp from "@/components/apps/WelcomeApp";
 import TerminalApp from "@/components/apps/TerminalApp";
+import MobileProjectDeepDive from "@/components/mobile/MobileProjectDeepDive";
 import { useWindowStore } from "@/lib/windowStore";
 import { ChevronLeft } from "lucide-react";
 
@@ -19,6 +20,7 @@ const APP_COMPONENTS = {
   about: AboutApp,
   contact: ContactApp,
   terminal: TerminalApp,
+  deepdive: MobileProjectDeepDive,
 } as const;
 
 interface MobileAppViewProps {

@@ -5,6 +5,8 @@ export type TerminalAction = {
   appId: AppId;
   /** When appId is "projects", open to this project id (e.g. physician-connection). */
   projectId?: string;
+  /** Optional deep-dive section hint (e.g. "architecture"). */
+  sectionId?: string;
 };
 
 export type TerminalCommandDef = {
@@ -29,6 +31,15 @@ const HELP_OUTPUT = `Available commands:
   pnpm typecheck  — run type check
   pnpm build      — production build
   clear           — clear console`;
+
+const PROJECT_ALIAS_TO_ID: Record<string, string> = {
+  physician: "physician-connection",
+  "physician-connection": "physician-connection",
+  "media-api": "media-auth-api",
+  "media-auth": "media-auth-api",
+  "media-auth-api": "media-auth-api",
+  chrisos: "chrisos",
+};
 
 /** Shared command definitions: output text + optional actions. Same vocabulary for desktop and mobile. */
 export const TERMINAL_COMMANDS: Record<string, TerminalCommandDef> = {
@@ -152,6 +163,94 @@ Actions:`,
   "pnpm build": {
     output: `Creating production build…
 ✓ Build completed`,
+  },
+  "open physician-connection": {
+    output: `Opening Physician Connection Platform deep dive (overview)…`,
+    actions: [
+      {
+        label: "Open Physician Connection Overview",
+        appId: "deepdive",
+        projectId: PROJECT_ALIAS_TO_ID["physician-connection"],
+        sectionId: "overview",
+      },
+    ],
+  },
+  "open media-api": {
+    output: `Opening Media Authenticity API deep dive (overview)…`,
+    actions: [
+      {
+        label: "Open Media Authenticity API Overview",
+        appId: "deepdive",
+        projectId: PROJECT_ALIAS_TO_ID["media-api"],
+        sectionId: "overview",
+      },
+    ],
+  },
+  "open chrisos": {
+    output: `Opening ChrisOS deep dive (overview)…`,
+    actions: [
+      {
+        label: "Open ChrisOS Overview",
+        appId: "deepdive",
+        projectId: PROJECT_ALIAS_TO_ID["chrisos"],
+        sectionId: "overview",
+      },
+    ],
+  },
+  "show architecture media-api": {
+    output: `Opening Media Authenticity API — Architecture…`,
+    actions: [
+      {
+        label: "View Media Auth API Architecture",
+        appId: "deepdive",
+        projectId: PROJECT_ALIAS_TO_ID["media-api"],
+        sectionId: "architecture",
+      },
+    ],
+  },
+  "show architecture physician-connection": {
+    output: `Opening Physician Connection Platform — Architecture…`,
+    actions: [
+      {
+        label: "View Physician Connection Architecture",
+        appId: "deepdive",
+        projectId: PROJECT_ALIAS_TO_ID["physician-connection"],
+        sectionId: "architecture",
+      },
+    ],
+  },
+  "show architecture chrisos": {
+    output: `Opening ChrisOS — Architecture…`,
+    actions: [
+      {
+        label: "View ChrisOS Architecture",
+        appId: "deepdive",
+        projectId: PROJECT_ALIAS_TO_ID["chrisos"],
+        sectionId: "architecture",
+      },
+    ],
+  },
+  "show flow physician-connection": {
+    output: `Opening Physician Connection Platform — System Flow…`,
+    actions: [
+      {
+        label: "View Physician Connection Flow",
+        appId: "deepdive",
+        projectId: PROJECT_ALIAS_TO_ID["physician-connection"],
+        sectionId: "flow",
+      },
+    ],
+  },
+  "show flow media-api": {
+    output: `Opening Media Authenticity API — System Flow…`,
+    actions: [
+      {
+        label: "View Media Auth API Flow",
+        appId: "deepdive",
+        projectId: PROJECT_ALIAS_TO_ID["media-api"],
+        sectionId: "flow",
+      },
+    ],
   },
 };
 
