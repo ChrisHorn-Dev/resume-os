@@ -163,27 +163,36 @@ function PhysicianDemo() {
     </div>
   );
 }
-import { projects } from "@/content/projects";
+import type { Project } from "@/content/projects";
 import { ChevronLeft, ArrowRight } from "lucide-react";
 import { useWindow } from "@/lib/WindowContext";
 import { useProjectsEntryStore } from "@/lib/projectsEntryStore";
 import { useWindowStore } from "@/lib/windowStore";
-import { useViewportMode } from "@/lib/useViewportMode";
+import {
+  getInventoryProjects,
+  PROJECT_FILTER_OPTIONS,
+  statusPillText,
+  statusPillVariant,
+  type ProjectFilter,
+  type StatusPillVariant,
+} from "@/lib/projectInventory";
 
 function StatusPill({
   label,
   variant,
 }: {
   label: string;
-  variant: "case-study" | "live" | "private" | "interface";
+  variant: StatusPillVariant;
 }) {
-  const styles = {
+  const styles: Record<StatusPillVariant, string> = {
     "case-study":
       "bg-amber-500/15 text-amber-400/90 border-amber-500/25",
     live: "bg-emerald-500/15 text-emerald-400/90 border-emerald-500/25",
     private: "chrisos-pill-private bg-zinc-700/60 text-zinc-400 border-[var(--border)]",
     interface:
       "bg-sky-500/15 text-sky-300/90 border-sky-500/30",
+    mvp: "bg-violet-500/15 text-violet-300/90 border-violet-500/30",
+    lab: "bg-zinc-600/20 text-zinc-300/90 border-zinc-500/25",
   };
   return (
     <span
@@ -195,38 +204,22 @@ function StatusPill({
 }
 
 export default function ProjectsApp() {
-  const curatedOrder = ["physician-connection", "media-auth-api", "chrisos"] as const;
-  const curated = projects
-    .filter((p) => curatedOrder.includes(p.id as (typeof curatedOrder)[number]))
-    .sort(
-      (a, b) =>
-        curatedOrder.indexOf(a.id as (typeof curatedOrder)[number]) -
-        curatedOrder.indexOf(b.id as (typeof curatedOrder)[number]),
-    );
+  const [filter, setFilter] = useState<ProjectFilter>("all");
+  const inventory = getInventoryProjects(filter);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selected = curated.find((p) => p.id === selectedId) ?? null;
+  const selected = inventory.find((p) => p.id === selectedId) ?? null;
 
   const win = useWindow();
   const initialProjectIdFromStore = useProjectsEntryStore((s) => s.initialProjectId);
   const setInitialProjectId = useProjectsEntryStore((s) => s.setInitialProjectId);
   const { openApp } = useWindowStore();
-  const mode = useViewportMode();
-  const isMobile = mode === "mobile";
-
-  const CARD_SUMMARY: Record<(typeof curatedOrder)[number], string> = {
-    "physician-connection":
-      "Operational SaaS for rep–practice scheduling with multi-role dashboards and appointment workflows.",
-    "media-auth-api":
-      "Verification API for image authenticity with detector orchestration, caching, and signed HMAC records.",
-    chrisos:
-      "OS-style portfolio shell that models windows, terminal, and mobile UI as a shared system surface.",
-  };
 
   useEffect(() => {
     const initialId =
       (win?.payload?.projectId as string | undefined) ?? initialProjectIdFromStore ?? null;
-    if (initialId && curated.some((p) => p.id === initialId)) {
+    if (initialId && getInventoryProjects("all").some((p) => p.id === initialId)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- deep-link entry from terminal/dock
       setSelectedId(initialId);
       setInitialProjectId(null);
     }
@@ -252,16 +245,8 @@ export default function ProjectsApp() {
               </h3>
             </div>
             <StatusPill
-              label={
-                selected.label === "case-study"
-                  ? "Case Study"
-                  : selected.label === "live"
-                    ? "Live"
-                    : selected.label === "interface"
-                      ? "Interface"
-                      : "Private"
-              }
-              variant={selected.label}
+              label={statusPillText(selected)}
+              variant={statusPillVariant(selected)}
             />
           </div>
           <div className="mt-3 space-y-4">
@@ -273,38 +258,22 @@ export default function ProjectsApp() {
                 {selected.details.overview}
               </p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            {selected.details.architecture && (
               <div>
                 <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                  Problem
+                  Architecture
                 </h4>
                 <p className="mt-1.5 leading-relaxed text-zinc-300">
-                  {selected.details.problem}
+                  {selected.details.architecture}
                 </p>
               </div>
-              <div>
-                <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                  Solution
-                </h4>
-                <p className="mt-1.5 leading-relaxed text-zinc-300">
-                  {selected.details.solution}
-                </p>
-              </div>
-            </div>
+            )}
             <div>
               <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                Architecture
-              </h4>
-              <p className="mt-1.5 leading-relaxed text-zinc-300">
-                {selected.details.architecture}
-              </p>
-            </div>
-            <div>
-              <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                Key Features
+                Highlights
               </h4>
               <ul className="mt-1.5 space-y-1.25 text-[13px] text-zinc-200">
-                {selected.details.features.map((f) => (
+                {selected.details.highlights.map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <span className="mt-[6px] h-[3px] w-[3px] rounded-full bg-zinc-400/80" />
                     <span>{f}</span>
@@ -312,32 +281,37 @@ export default function ProjectsApp() {
                 ))}
               </ul>
             </div>
-            <div>
-              <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                Tech Stack
-              </h4>
-              <p className="mt-1.5 text-[13px] text-zinc-300">
-                {selected.tech.join(" · ")}
-              </p>
-            </div>
-            {selected.details.links && selected.details.links.length > 0 && (
+            {selected.details.tradeoffs && (
               <div>
                 <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
-                  Links
+                  Tradeoffs
                 </h4>
-                <div className="mt-1.5 flex flex-wrap gap-2">
-                  {selected.details.links.map((l) => (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="chrisos-link-pill inline-flex items-center rounded-full border border-[var(--border)]/80 bg-transparent px-3 py-1.5 text-[12px] text-zinc-200 underline-offset-4 transition hover:border-[var(--accent)]/60 hover:bg-white/[0.04] hover:text-[var(--accent)] hover:underline"
-                    >
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
+                <p className="mt-1.5 leading-relaxed text-zinc-300">
+                  {selected.details.tradeoffs}
+                </p>
+              </div>
+            )}
+            <div>
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                Stack
+              </h4>
+              <p className="mt-1.5 text-[13px] text-zinc-300">
+                {selected.stack.join(" · ")}
+              </p>
+            </div>
+            {selected.link && (
+              <div>
+                <h4 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                  Link
+                </h4>
+                <a
+                  href={selected.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="chrisos-link-pill mt-1.5 inline-flex items-center rounded-full border border-[var(--border)]/80 bg-transparent px-3 py-1.5 text-[12px] text-zinc-200 underline-offset-4 transition hover:border-[var(--accent)]/60 hover:bg-white/[0.04] hover:text-[var(--accent)] hover:underline"
+                >
+                  {selected.link.includes("github.com") ? "Public repo" : "Live site"}
+                </a>
               </div>
             )}
             {selected.id === "physician-connection" && (
@@ -363,37 +337,42 @@ export default function ProjectsApp() {
           Projects
         </h2>
         <p className="mt-1 text-[11px] text-[color:var(--muted)]">
-          Three core systems across SaaS workflows, verification APIs, and frontend interface engineering.
+          Client work, product builds, labs, and public code across SaaS, portals, and tools.
         </p>
+        <div className="mt-2.5 flex flex-wrap gap-1.5">
+          {PROJECT_FILTER_OPTIONS.map((option) => {
+            const isActive = filter === option.id;
+            return (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => setFilter(option.id)}
+                className={`rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] transition-colors ${
+                  isActive
+                    ? "border-[var(--accent)]/60 bg-[var(--accent)]/15 text-zinc-50"
+                    : "border-[var(--border-subtle)] bg-white/[0.02] text-zinc-400 hover:border-zinc-500/70 hover:text-zinc-200"
+                }`}
+              >
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
       <ul className="space-y-3.5">
-        {curated.map((p) => (
+        {inventory.map((p: Project) => (
           <li
             key={p.id}
             role="button"
             tabIndex={0}
-            onClick={() => {
-              if (isMobile && (p.id === "media-auth-api" || p.id === "physician-connection" || p.id === "chrisos")) {
-                openApp("deepdive", { payload: { projectId: p.id } });
-                return;
-              }
-              setSelectedId(p.id);
-            }}
+            onClick={() => setSelectedId(p.id)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                if (isMobile && (p.id === "media-auth-api" || p.id === "physician-connection" || p.id === "chrisos")) {
-                  openApp("deepdive", { payload: { projectId: p.id } });
-                } else {
-                  setSelectedId(p.id);
-                }
+                setSelectedId(p.id);
               }
             }}
-            className={`chrisos-project-card group cursor-pointer rounded-xl border bg-[var(--surface-elevated)]/90 px-3.5 py-3.25 sm:p-4 transition-all duration-200 hover:border-zinc-600 hover:bg-[var(--surface-elevated)]/95 hover:shadow-[0_18px_45px_rgba(0,0,0,0.55)] ${
-              p.featured
-                ? "border-[var(--border)] shadow-[0_14px_40px_rgba(0,0,0,0.55)] ring-1 ring-[var(--accent)]/12"
-                : "border-[var(--border-subtle)] shadow-[0_10px_32px_rgba(0,0,0,0.45)]"
-            }`}
+            className="chrisos-project-card group cursor-pointer rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)]/90 px-3.5 py-3.25 shadow-[0_10px_32px_rgba(0,0,0,0.45)] transition-all duration-200 hover:border-zinc-600 hover:bg-[var(--surface-elevated)]/95 hover:shadow-[0_18px_45px_rgba(0,0,0,0.55)] sm:p-4"
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
@@ -401,24 +380,16 @@ export default function ProjectsApp() {
                   {p.name}
                 </h3>
                 <p className="mt-1.5 line-clamp-2 text-[13px] leading-snug text-[color:var(--muted)]">
-                  {CARD_SUMMARY[p.id as (typeof curatedOrder)[number]] ?? p.description}
+                  {p.description}
                 </p>
               </div>
               <StatusPill
-                label={
-                  p.label === "case-study"
-                    ? "Case Study"
-                    : p.label === "live"
-                      ? "Live"
-                      : p.label === "interface"
-                        ? "Interface"
-                        : "Private"
-                }
-                variant={p.label}
+                label={statusPillText(p)}
+                variant={statusPillVariant(p)}
               />
             </div>
             <div className="mt-2.5 flex flex-wrap gap-x-2 gap-y-1.5">
-              {p.tech.map((t) => (
+              {p.stack.map((t) => (
                 <span
                   key={t}
                   className="chrisos-tech-tag rounded-md bg-zinc-800/70 px-2.5 py-0.5 text-[11px] text-zinc-300"

@@ -538,75 +538,66 @@ export const projectDeepDives: Record<ProjectId, ProjectDeepDive> = {
   "cape-fear-web": {
     id: "cape-fear-web",
     quickSummary:
-      "Identity and marketing surface used to route people into case studies, portfolio content, and contact paths.",
+      "Studio site and client delivery system for custom software work.",
     sections: [],
   },
-  "thank-you-for-dying": {
-    id: "thank-you-for-dying",
+  "cape-fear-client-portal": {
+    id: "cape-fear-client-portal",
     quickSummary:
-      "Experimental immersive brand and event concept; details are not exposed as a deep dive here.",
-    sections: [],
-  },
-  "regal-rides": {
-    id: "regal-rides",
-    quickSummary:
-      "Client-facing booking experience built on a customized frontend; no deep dive content is currently published.",
-    sections: [],
-  },
-  "ronald-wayne": {
-    id: "ronald-wayne",
-    quickSummary:
-      "Informational and ecommerce site; deep dive content is omitted to keep the focus on core engineering work.",
+      "Private client delivery layer for requests, project communication, and handoff workflows.",
     sections: [],
   },
   siteos: {
     id: "siteos",
     quickSummary:
-      "Construction execution intelligence platform — private repo with public architecture case study draft.",
+      "Construction dashboard system built around field updates, project signals, and executive views.",
     sections: [],
   },
   "elite-touch-client-portal": {
     id: "elite-touch-client-portal",
     quickSummary:
-      "Client companion and ops portal for commercial cleaning — SOS path, notifications, admin triage.",
+      "Client portal for cleaning requests, emergency messages, admin triage, and notifications.",
     sections: [],
   },
   "elite-touch-proposals": {
     id: "elite-touch-proposals",
     quickSummary:
-      "Internal Elite Touch proposal and PDF generation tool — related to client portal case study.",
+      "Proposal tool for building service quotes and client-facing proposal views.",
     sections: [],
   },
   "regen-profits": {
     id: "regen-profits",
     quickSummary:
-      "Mobile-first sales PWA for reps and admins — private client work with staging deployment.",
+      "Mobile-first sales app for rep dashboards, leaderboards, and admin oversight.",
     sections: [],
   },
   "remember-me": {
     id: "remember-me",
     quickSummary:
-      "Consumer gifting MVP with demo mode and honest Phase 1 scope boundaries.",
+      "Small consumer MVP for reminders, wishlists, and remembering when to follow up with people.",
     sections: [],
   },
   "genesis-mastery": {
     id: "genesis-mastery",
-    quickSummary: "EdTech curriculum platform scaffold — private, early stage.",
+    quickSummary:
+      "Learning platform scaffold for structured lessons, auth, and progress-oriented product flows.",
     sections: [],
   },
   "wilmington-engine": {
     id: "wilmington-engine",
-    quickSummary: "News/content automation engine R&D — experimental private repo.",
+    quickSummary: "Content and automation R&D around local news and data workflows.",
     sections: [],
   },
   "visual-conversations": {
     id: "visual-conversations",
-    quickSummary: "UI intent Chrome extension + CLI — experimental dev tool.",
+    quickSummary:
+      "Experiment around visual context, browser interaction, and AI-assisted UI review.",
     sections: [],
   },
   "pathbound-mobile": {
     id: "pathbound-mobile",
-    quickSummary: "Godot 4 game lab — personal project, optional portfolio signal.",
+    quickSummary:
+      "Mobile game lab focused on movement, interaction, and small-screen systems.",
     sections: [],
   },
 };

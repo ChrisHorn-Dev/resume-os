@@ -3,11 +3,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useWindow } from "@/lib/WindowContext";
 import { projects } from "@/content/projects";
-import {
-  DEEP_DIVE_SECTIONS,
-  projectDeepDives,
-} from "@/content/projectDeepDives";
+import { DEEP_DIVE_SECTIONS } from "@/content/projectDeepDives";
 import type { ProjectId } from "@/content/projects";
+import {
+  DEEP_DIVE_PROJECT_IDS,
+  getDeepDiveSection,
+  getProjectDeepDive,
+} from "@/lib/projectDeepDiveContent";
 
 type DeepDiveSectionId =
   | "overview"
@@ -17,13 +19,7 @@ type DeepDiveSectionId =
   | "decisions"
   | "future";
 
-const FEATURED_PROJECTS: ProjectId[] = [
-  "siteos",
-  "physician-connection",
-  "elite-touch-client-portal",
-  "media-auth-api",
-  "chrisos",
-];
+const FEATURED_PROJECTS = DEEP_DIVE_PROJECT_IDS;
 
 export default function ProjectDeepDiveApp() {
   const win = useWindow();
@@ -33,7 +29,7 @@ export default function ProjectDeepDiveApp() {
     if (payloadProject && FEATURED_PROJECTS.includes(payloadProject)) {
       return payloadProject;
     }
-    return "media-auth-api" as ProjectId;
+    return FEATURED_PROJECTS[0] ?? ("physician-connection" as ProjectId);
   }, [win?.payload?.projectId]);
 
   const initialSectionId = useMemo(() => {
@@ -53,8 +49,8 @@ export default function ProjectDeepDiveApp() {
   }, [activeProjectId, activeSectionId]);
 
   const activeProject = projects.find((p) => p.id === activeProjectId) ?? projects[0];
-  const deepDive = projectDeepDives[activeProjectId];
-  const section = deepDive.sections.find((s) => s.id === activeSectionId);
+  const deepDive = getProjectDeepDive(activeProjectId);
+  const section = getDeepDiveSection(activeProjectId, activeSectionId);
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-[var(--surface-elevated)]/90 text-sm text-zinc-200">
@@ -280,7 +276,7 @@ export default function ProjectDeepDiveApp() {
             </div>
           ) : (
             <p className="text-[13px] text-zinc-400">
-              Deep-dive content for this section is still being curated.
+              No additional notes for this section yet.
             </p>
           )}
           </div>

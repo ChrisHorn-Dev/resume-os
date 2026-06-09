@@ -4,19 +4,15 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { WindowState } from "@/lib/types";
 import { useWindow } from "@/lib/WindowContext";
 import { projects } from "@/content/projects";
-import {
-  DEEP_DIVE_SECTIONS,
-  projectDeepDives,
-} from "@/content/projectDeepDives";
+import { DEEP_DIVE_SECTIONS } from "@/content/projectDeepDives";
 import type { ProjectId } from "@/content/projects";
+import {
+  DEEP_DIVE_PROJECT_IDS,
+  getDeepDiveSection,
+  getProjectDeepDive,
+} from "@/lib/projectDeepDiveContent";
 
-const FEATURED_PROJECTS: ProjectId[] = [
-  "siteos",
-  "physician-connection",
-  "elite-touch-client-portal",
-  "media-auth-api",
-  "chrisos",
-];
+const FEATURED_PROJECTS = DEEP_DIVE_PROJECT_IDS;
 
 export default function MobileProjectDeepDive() {
   const win = useWindow() as WindowState | null;
@@ -26,7 +22,7 @@ export default function MobileProjectDeepDive() {
     if (payloadProject && FEATURED_PROJECTS.includes(payloadProject)) {
       return payloadProject;
     }
-    return "media-auth-api" as ProjectId;
+    return FEATURED_PROJECTS[0] ?? ("physician-connection" as ProjectId);
   }, [win?.payload?.projectId]);
 
   const [activeProjectId, setActiveProjectId] = useState<ProjectId>(initialProjectId);
@@ -40,7 +36,7 @@ export default function MobileProjectDeepDive() {
   }, [activeProjectId]);
 
   const activeProject = projects.find((p) => p.id === activeProjectId) ?? projects[0];
-  const deepDive = projectDeepDives[activeProjectId];
+  const deepDive = getProjectDeepDive(activeProjectId);
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-[var(--surface-elevated)]/95 text-[13px] text-zinc-200">
@@ -86,7 +82,7 @@ export default function MobileProjectDeepDive() {
           className="h-full min-h-0 overflow-auto px-3 py-3 space-y-3"
         >
           {DEEP_DIVE_SECTIONS.map((meta) => {
-            const section = deepDive.sections.find((s) => s.id === meta.id);
+            const section = getDeepDiveSection(activeProjectId, meta.id);
             return (
               <section
                 key={meta.id}
@@ -247,7 +243,7 @@ export default function MobileProjectDeepDive() {
                   </div>
                 ) : (
                   <p className="mt-2 text-[11px] text-zinc-400">
-                    Deep-dive content for this section is still being curated.
+                    No additional notes for this section yet.
                   </p>
                 )}
               </section>
