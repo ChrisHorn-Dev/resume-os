@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:projects": "node scripts/check-project-inventory.mjs"
+    "check:projects": "node scripts/check-project-inventory.mjs",
+    "check:excluded": "node scripts/check-excluded-projects.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.35.1",

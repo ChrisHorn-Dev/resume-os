@@ -12,10 +12,6 @@ export const PROJECT_INVENTORY_ORDER: ProjectId[] = [
   "remember-me",
   "media-auth-api",
   "chrisos",
-  "genesis-mastery",
-  "wilmington-engine",
-  "visual-conversations",
-  "pathbound-mobile",
 ];
 
 export type ProjectFilter = "all" | "case-studies" | "private" | "public" | "labs";
@@ -94,8 +90,4 @@ export const EXPECTED_INVENTORY_TITLES = [
   "RememberMe",
   "Media Authenticity API",
   "ChrisOS",
-  "Genesis Mastery",
-  "Wilmington Engine",
-  "Visual Conversations",
-  "Pathbound Mobile",
 ] as const;

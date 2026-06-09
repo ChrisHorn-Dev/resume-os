@@ -8,11 +8,7 @@ export type ProjectId =
   | "cape-fear-web"
   | "cape-fear-client-portal"
   | "media-auth-api"
-  | "chrisos"
-  | "genesis-mastery"
-  | "wilmington-engine"
-  | "visual-conversations"
-  | "pathbound-mobile";
+  | "chrisos";
 
 export type ProjectLabel =
   | "case-study"
@@ -239,78 +235,6 @@ export const projects: Project[] = [
         "Terminal and project views",
         "Mobile-responsive layout",
         "Deployed at chrisos.dev",
-      ],
-    },
-  },
-  {
-    id: "genesis-mastery",
-    name: "Genesis Mastery",
-    description:
-      "Learning platform scaffold for structured lessons, auth, and progress-oriented product flows.",
-    stack: ["Next.js", "Prisma", "NextAuth"],
-    status: "Private project",
-    label: "private",
-    details: {
-      overview:
-        "Early learning platform scaffold with structured lessons, auth, and progress tracking hooks.",
-      highlights: [
-        "Lesson and module structure",
-        "Auth and user sessions",
-        "Progress-oriented product flows",
-        "Scaffold stage — not a shipped product",
-      ],
-    },
-  },
-  {
-    id: "wilmington-engine",
-    name: "Wilmington Engine",
-    description: "Content and automation R&D around local news and data workflows.",
-    stack: ["Next.js", "Neon", "TypeScript"],
-    status: "Lab",
-    label: "experimental",
-    details: {
-      overview:
-        "Automation lab for local news ingestion, content workflows, and data experiments.",
-      highlights: [
-        "Local news and data workflow experiments",
-        "Content pipeline R&D",
-        "Low-emphasis lab project",
-      ],
-    },
-  },
-  {
-    id: "visual-conversations",
-    name: "Visual Conversations",
-    description:
-      "Experiment around visual context, browser interaction, and AI-assisted UI review.",
-    stack: ["TypeScript", "Chrome Extension", "OpenAI"],
-    status: "Experimental",
-    label: "experimental",
-    details: {
-      overview:
-        "Dev tool experiment combining visual context capture, browser interaction, and AI-assisted UI review.",
-      highlights: [
-        "Visual context capture",
-        "Browser interaction layer",
-        "AI-assisted UI review workflow",
-      ],
-    },
-  },
-  {
-    id: "pathbound-mobile",
-    name: "Pathbound Mobile",
-    description:
-      "Mobile game lab focused on movement, interaction, and small-screen systems.",
-    stack: ["Godot 4"],
-    status: "Lab",
-    label: "experimental",
-    details: {
-      overview:
-        "Mobile game lab exploring movement mechanics, touch interaction, and small-screen game systems.",
-      highlights: [
-        "Movement and interaction prototypes",
-        "Small-screen game systems",
-        "Godot 4 mobile targets",
       ],
     },
   },

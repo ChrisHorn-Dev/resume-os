@@ -16,10 +16,6 @@ const EXPECTED_INVENTORY_TITLES = [
   "RememberMe",
   "Media Authenticity API",
   "ChrisOS",
-  "Genesis Mastery",
-  "Wilmington Engine",
-  "Visual Conversations",
-  "Pathbound Mobile",
 ];
 
 const missing = EXPECTED_INVENTORY_TITLES.filter(

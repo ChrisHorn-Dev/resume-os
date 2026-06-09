@@ -577,28 +577,5 @@ export const projectDeepDives: Record<ProjectId, ProjectDeepDive> = {
       "Small consumer MVP for reminders, wishlists, and remembering when to follow up with people.",
     sections: [],
   },
-  "genesis-mastery": {
-    id: "genesis-mastery",
-    quickSummary:
-      "Learning platform scaffold for structured lessons, auth, and progress-oriented product flows.",
-    sections: [],
-  },
-  "wilmington-engine": {
-    id: "wilmington-engine",
-    quickSummary: "Content and automation R&D around local news and data workflows.",
-    sections: [],
-  },
-  "visual-conversations": {
-    id: "visual-conversations",
-    quickSummary:
-      "Experiment around visual context, browser interaction, and AI-assisted UI review.",
-    sections: [],
-  },
-  "pathbound-mobile": {
-    id: "pathbound-mobile",
-    quickSummary:
-      "Mobile game lab focused on movement, interaction, and small-screen systems.",
-    sections: [],
-  },
 };
 
