@@ -11,8 +11,10 @@ import {
 import type { ProjectId } from "@/content/projects";
 
 const FEATURED_PROJECTS: ProjectId[] = [
-  "media-auth-api",
+  "siteos",
   "physician-connection",
+  "elite-touch-client-portal",
+  "media-auth-api",
   "chrisos",
 ];
 

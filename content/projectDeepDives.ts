@@ -559,5 +559,55 @@ export const projectDeepDives: Record<ProjectId, ProjectDeepDive> = {
       "Informational and ecommerce site; deep dive content is omitted to keep the focus on core engineering work.",
     sections: [],
   },
+  siteos: {
+    id: "siteos",
+    quickSummary:
+      "Construction execution intelligence platform — private repo with public architecture case study draft.",
+    sections: [],
+  },
+  "elite-touch-client-portal": {
+    id: "elite-touch-client-portal",
+    quickSummary:
+      "Client companion and ops portal for commercial cleaning — SOS path, notifications, admin triage.",
+    sections: [],
+  },
+  "elite-touch-proposals": {
+    id: "elite-touch-proposals",
+    quickSummary:
+      "Internal Elite Touch proposal and PDF generation tool — related to client portal case study.",
+    sections: [],
+  },
+  "regen-profits": {
+    id: "regen-profits",
+    quickSummary:
+      "Mobile-first sales PWA for reps and admins — private client work with staging deployment.",
+    sections: [],
+  },
+  "remember-me": {
+    id: "remember-me",
+    quickSummary:
+      "Consumer gifting MVP with demo mode and honest Phase 1 scope boundaries.",
+    sections: [],
+  },
+  "genesis-mastery": {
+    id: "genesis-mastery",
+    quickSummary: "EdTech curriculum platform scaffold — private, early stage.",
+    sections: [],
+  },
+  "wilmington-engine": {
+    id: "wilmington-engine",
+    quickSummary: "News/content automation engine R&D — experimental private repo.",
+    sections: [],
+  },
+  "visual-conversations": {
+    id: "visual-conversations",
+    quickSummary: "UI intent Chrome extension + CLI — experimental dev tool.",
+    sections: [],
+  },
+  "pathbound-mobile": {
+    id: "pathbound-mobile",
+    quickSummary: "Godot 4 game lab — personal project, optional portfolio signal.",
+    sections: [],
+  },
 };
 
