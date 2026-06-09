@@ -22,11 +22,9 @@ export interface Project {
   description: string;
   tech: string[];
   link?: string;
-  label: "case-study" | "private" | "live" | "interface" | "staging" | "mvp" | "experimental";
+  label: "case-study" | "private" | "live" | "interface" | "mvp" | "experimental";
   featured?: boolean;
   status?: string;
-  proofType?: string;
-  privacyLabel?: string;
   details?: {
     overview: string;
     problem: string;
@@ -44,86 +42,82 @@ export const projects: Project[] = [
     id: "siteos",
     name: "SiteOS",
     description:
-      "Construction execution intelligence platform — field signals, multi-persona dashboards, mobile field app, and ML/LLM-assisted workflows.",
-    tech: ["FastAPI", "Celery", "Next.js", "Expo", "PostgreSQL", "TimescaleDB"],
-    label: "case-study",
+      "Construction dashboard system built around field updates, project signals, and executive-level views.",
+    tech: ["FastAPI", "Celery", "Next.js", "Expo", "PostgreSQL"],
+    label: "private",
     featured: true,
-    status: "Active development",
-    proofType: "Private repo + public case study (draft)",
-    privacyLabel: "Client-sensitive — code private",
+    status: "In development · private repo",
     details: {
       overview:
-        "Full-stack construction intelligence platform spanning FastAPI services, background workers, Next.js dashboards, and an Expo mobile app.",
+        "Python backend with workers, Next.js dashboards, and a mobile field app. Includes a separate signal-ingestion service for county-level data.",
       problem:
-        "Construction ops data is fragmented across tools, delaying executive visibility and field coordination.",
+        "Construction ops data tends to live in spreadsheets, photos, and disconnected tools.",
       solution:
-        "Built a platform architecture for signal ingestion, project intelligence, and persona-specific dashboards with demo-ready seed projects.",
+        "One platform shape for ingestion, project intelligence, and role-specific dashboards, with demo seed data for walkthroughs.",
       architecture:
-        "FastAPI + Celery + PostgreSQL/TimescaleDB backend; Next.js dashboards; Expo mobile; ML/CV and Claude API integration points.",
+        "FastAPI + Celery + PostgreSQL/TimescaleDB; Next.js frontends; Expo mobile; ML and LLM hooks for document/RFI workflows.",
       features: [
         "Multi-persona dashboard surfaces",
-        "Docker-compose local full stack",
-        "SiteOS signal engine for county-level foundation data",
-        "Demo runbooks and audit documentation",
+        "Background jobs for ingestion and scraping",
+        "Demo project seeding for stakeholder review",
       ],
-      links: [
-        { label: "Case study (draft) →", href: `${CASE_STUDIES}/blob/main/siteos.md` },
-      ],
+      links: [],
     },
   },
   {
     id: "physician-connection",
-    name: "Physician Connection Platform",
+    name: "Physician Connection",
     description:
-      "Multi-tenant healthcare SaaS coordinating scheduling workflows between pharmaceutical reps and physician practices.",
-    tech: ["Next.js", "TypeScript", "Drizzle ORM", "Better Auth", "Cal.com"],
+      "Healthcare SaaS for scheduling and coordination between pharma reps and physician practices.",
+    tech: ["Next.js", "TypeScript", "Drizzle", "Better Auth", "Cal.com"],
     label: "case-study",
     featured: true,
-    status: "Beta-ready",
-    proofType: "Private repo + public case study",
-    privacyLabel: "Healthcare client — code private",
+    status: "Private repo · public case study",
     details: {
       overview:
-        "Role-based SaaS connecting reps and practices through guided scheduling workflows, dashboards, and super-admin operational tooling.",
+        "Multi-role app: reps, practice staff, physicians, and super-admin tooling around Cal.com-backed scheduling.",
       problem:
-        "Fragmented coordination and fragile production behavior blocked real-office rollout.",
+        "Coordination lived in email and fragile production behavior blocked real-office use.",
       solution:
-        "Stabilized auth, database writes, Cal.com integration, and hosting migration toward controlled beta readiness.",
+        "Structured request flows, clearer role boundaries, and hardening work on auth, database writes, and hosting.",
       architecture:
-        "Next.js App Router with role partitions, Drizzle on Neon, Better Auth, self-hosted Cal.com on Railway, Sentry on critical paths.",
+        "Next.js App Router, Drizzle on Neon, Better Auth, self-hosted Cal.com, Sentry on critical server paths.",
       features: [
-        "Multi-role dashboards and guided rep request flows",
-        "Cal.com-backed scheduling with domain-specific behavior",
-        "Production hardening and observability improvements",
+        "Guided rep request flows",
+        "Practice-side calendar and lifecycle views",
+        "Production stabilization and infra migration",
       ],
-      links: [{ label: "View Case Study →", href: CASE_STUDIES }],
+      links: [
+        {
+          label: "Case study →",
+          href: `${CASE_STUDIES}/blob/main/physician-connection.md`,
+        },
+      ],
     },
   },
   {
     id: "elite-touch-client-portal",
     name: "Elite Touch Cleaning Companion App",
     description:
-      "Client companion and admin ops portal for commercial cleaning — typed requests, SOS emergencies, notifications, and HubSpot sync.",
+      "Client portal for cleaning requests, emergency/SOS messages, admin triage, and ops notifications.",
     tech: ["Next.js", "Prisma", "Twilio", "Resend", "HubSpot"],
     label: "case-study",
     featured: true,
-    status: "MVP-ready",
-    proofType: "Private repo + public case study",
-    privacyLabel: "Client work — code private",
+    status: "MVP · private repo",
     details: {
       overview:
-        "Mobile-first client portal with separate SOS pipeline, admin triage queues, and mockable Twilio/Resend integrations.",
+        "Mobile-first client launcher plus admin queues for a commercial cleaning company.",
       problem:
-        "Client communication fragmented across phone and email with no durable operational record.",
+        "Phone and email didn't give ops a durable record of requests or urgency.",
       solution:
-        "Structured request lifecycle, emergency path, notification audit logging, and admin triage surfaces.",
+        "Typed request lifecycle, separate SOS path, notification audit trail, and admin triage UI.",
       architecture:
-        "Next.js App Router, Prisma persistence, cookie sessions, centralized notify-ops fan-out with NotificationEvent audit trail.",
+        "Next.js App Router, Prisma, cookie sessions, centralized SMS/email fan-out with per-recipient logging.",
       features: [
-        "Client launcher + modal task flows",
-        "SOS emergency broadcasts",
-        "Admin queues with threaded messages and attachments",
-        "HubSpot read/sync path",
+        "Client modal flows for issues, notes, and supplies",
+        "SOS emergency pipeline",
+        "Admin triage with threads and attachments",
+        "HubSpot contact sync",
       ],
       links: [
         {
@@ -137,29 +131,22 @@ export const projects: Project[] = [
     id: "elite-touch-proposals",
     name: "Elite Touch Proposal App",
     description:
-      "Internal proposal builder generating branded scope-of-work PDFs for Elite Touch sales and onboarding.",
-    tech: ["Next.js", "Prisma", "React PDF", "NextAuth"],
+      "Internal app for scope-of-work proposals and branded PDF output for Elite Touch sales.",
+    tech: ["Next.js", "Prisma", "React PDF"],
     label: "private",
     featured: false,
-    status: "Internal MVP",
-    proofType: "Private repo",
-    privacyLabel: "Internal client tool",
+    status: "Internal tool · private repo",
     details: {
       overview:
-        "Proposal and PDF generation workflow supporting Elite Touch commercial scoping and employee approval flows.",
-      problem: "Manual proposal assembly slowed sales and onboarding consistency.",
+        "Proposal builder in the same client ecosystem as the companion portal, focused on PDF generation.",
+      problem: "Manual proposal assembly was slow and inconsistent.",
       solution:
-        "Structured proposal data model with PDF rendering, auth, and verification scripts.",
-      architecture:
-        "Next.js App Router, Prisma, @react-pdf/renderer, Playwright e2e for critical flows.",
-      features: [
-        "Branded PDF generation",
-        "Proposal lifecycle and approval-oriented flows",
-        "Documented Neon/Vercel deployment path",
-      ],
+        "Structured proposal data model with PDF rendering and auth-gated admin flows.",
+      architecture: "Next.js, Prisma, @react-pdf/renderer.",
+      features: ["Branded PDF generation", "Proposal admin flows"],
       links: [
         {
-          label: "Related case study (client portal) →",
+          label: "Related case study →",
           href: `${CASE_STUDIES}/blob/main/elite-touch-cleaning.md`,
         },
       ],
@@ -169,92 +156,73 @@ export const projects: Project[] = [
     id: "regen-profits",
     name: "Regen Profits Sales App",
     description:
-      "Mobile-first PWA for sales reps and admins — dashboards, leaderboards, sales logging, and command center.",
-    tech: ["Next.js", "Supabase", "PWA", "Tailwind CSS"],
-    label: "staging",
+      "Mobile sales PWA for logging activity, leaderboards, and admin oversight.",
+    tech: ["Next.js", "Supabase", "PWA"],
+    label: "private",
     featured: true,
-    status: "Staging",
-    proofType: "Private repo + case study draft",
-    privacyLabel: "Client work — anonymize publicly",
-    link: "https://regen-profits-sales-app.vercel.app",
+    status: "Client project · private repo",
     details: {
       overview:
-        "Sales performance PWA with rep and admin surfaces, Supabase auth/RLS, and documented client demo materials.",
-      problem: "Distributed reps needed fast mobile logging and accountability tooling.",
-      solution:
-        "PWA-first Next.js app with staging deployment and QA documentation for client review.",
-      architecture:
-        "Next.js 16 App Router, Supabase SSR, service worker + manifest, admin command center.",
+        "Rep dashboard, sales entry, funnel, leaderboard, and admin command center.",
+      problem: "Reps needed a fast mobile surface without a native app release.",
+      solution: "PWA-first Next.js app with Supabase auth and row-level security.",
+      architecture: "Next.js App Router, Supabase SSR, installable PWA shell.",
       features: [
-        "Rep dashboard, sales funnel, leaderboard, competitions",
-        "Admin oversight surfaces",
-        "Staging deployment with verification docs",
+        "Rep and admin surfaces",
+        "Leaderboard and competitions",
+        "Documented staging QA for client review",
       ],
-      links: [
-        {
-          label: "Case study draft →",
-          href: `${CASE_STUDIES}/blob/main/regen-profits-sales-app.md`,
-        },
-      ],
+      links: [],
     },
   },
   {
     id: "remember-me",
     name: "Remember Me",
     description:
-      "Relationship gifting MVP — wishlists, reminders, events, and Thinking of You drafts with honest Phase 1 boundaries.",
+      "Small consumer MVP for reminders, wishlists, and remembering when to follow up with people.",
     tech: ["Next.js", "Supabase", "TypeScript"],
     label: "mvp",
     featured: true,
-    status: "MVP",
-    proofType: "Private repo + case study draft",
-    privacyLabel: "Personal product",
+    status: "MVP · private repo",
     details: {
       overview:
-        "Phase 1 consumer app for relationship context, gift ideas, and draft gifting flows — demo mode included.",
+        "Phase 1 app with honest scope: no payments or gift delivery yet. Includes a demo mode that runs without a backend.",
       problem:
-        "Important dates and gift ideas scatter across apps without a calm, focused workflow.",
+        "Dates and gift ideas get scattered across notes apps and messages.",
       solution:
-        "Unified MVP with Supabase auth and local demo mode for stakeholder walkthroughs.",
+        "One calm MVP for reminders, wishlists, events, and a gift draft flow.",
       architecture:
-        "Next.js App Router, Supabase SSR when configured, localStorage demo store for /demo path.",
+        "Next.js App Router, Supabase when configured, localStorage demo store for walkthroughs.",
       features: [
-        "Wishlist, reminders, events CRUD",
-        "Thinking of You draft flow (no delivery in Phase 1)",
-        "Demo mode with reset banner",
+        "Wishlist and reminder CRUD",
+        "Thinking of You draft flow",
+        "Demo mode at /demo",
       ],
-      links: [
-        {
-          label: "Case study draft →",
-          href: `${CASE_STUDIES}/blob/main/remember-me.md`,
-        },
-      ],
+      links: [],
     },
   },
   {
     id: "media-auth-api",
     name: "Media Authenticity API",
     description:
-      "Signed image authenticity API with detector-based analysis and independent verification endpoint.",
+      "Checks an uploaded image, stores a signed result, and lets someone verify later that it wasn't changed.",
     tech: ["Next.js", "TypeScript", "Hugging Face", "Vitest"],
     link: "https://github.com/ChrisHorn-Dev/media-auth-api",
     label: "case-study",
     featured: true,
     status: "Public repo",
-    proofType: "Public code + case study overview",
     details: {
       overview:
-        "HTTP API analyzing images for authenticity with HMAC-signed records and POST /api/verify.",
-      problem:
-        "Teams need verifiable API responses, not just model scores.",
+        "Small HTTP API with detector registry, caching, optional rate limits, and HMAC-signed responses.",
+      problem: "Raw model scores aren't enough—you need verifiable API responses.",
       solution:
-        "Detector registry, caching, signing, and verification route with tests.",
+        "Signed authenticity records plus a verify endpoint and tests around both paths.",
       architecture:
-        "Next.js API routes, orchestrator, detector registry, in-memory/file cache, Vitest coverage.",
+        "Next.js API routes, orchestrator, detector registry, file-hash cache, Vitest.",
       features: [
         "Single and batch analyze endpoints",
-        "Ensemble and single-detector modes",
-        "Signed authenticity records + verify endpoint",
+        "Ensemble or single-detector modes",
+        "POST /api/verify",
       ],
       links: [
         {
@@ -262,7 +230,7 @@ export const projects: Project[] = [
           href: "https://github.com/ChrisHorn-Dev/media-auth-api",
         },
         {
-          label: "Case study overview →",
+          label: "Case study →",
           href: `${CASE_STUDIES}/blob/main/media-auth-api.md`,
         },
       ],
@@ -272,26 +240,25 @@ export const projects: Project[] = [
     id: "cape-fear-web",
     name: "Cape Fear Web Co",
     description:
-      "Studio website and Supabase client delivery portal for operational software — live at capefearweb.co.",
-    tech: ["Vite", "React", "Supabase", "Tailwind CSS", "Vercel"],
+      "Studio site and client delivery portal for custom software work.",
+    tech: ["Vite", "React", "Supabase", "Tailwind"],
     link: "https://capefearweb.co",
     label: "live",
     featured: true,
-    status: "Live site",
-    proofType: "Live site + public case study",
+    status: "Live site · private repo",
     details: {
       overview:
-        "Marketing, SEO content system, and authenticated /portal delivery companion in one Vite SPA.",
+        "Marketing site, blog, case summaries, and a Supabase-backed /portal for client messages and requests.",
       problem:
-        "Studio needed credible positioning plus structured client delivery beyond email threads.",
+        "Studio needed credible positioning plus structured delivery beyond email.",
       solution:
-        "Unified site with case summaries linking to GitHub writeups and Supabase-backed portal.",
+        "One Vite SPA for public pages and authenticated portal routes.",
       architecture:
-        "Vite/React SPA, Supabase Auth/RLS, Vercel serverless notify API, build-time sitemap + JSON-LD.",
+        "React Router, Supabase Auth/RLS, Vercel serverless notify hook, build-time sitemap.",
       features: [
-        "Topic anchor pages and markdown blog cluster",
-        "Client portal: messages, requests, files, activity feed",
-        "Cross-links to public case studies repo",
+        "Topic pages and markdown blog",
+        "Client portal for messages, requests, and files",
+        "Links out to GitHub case studies for depth",
       ],
       links: [
         { label: "Live site →", href: "https://capefearweb.co" },
@@ -306,25 +273,23 @@ export const projects: Project[] = [
     id: "chrisos",
     name: "ChrisOS",
     description:
-      "Interactive desktop-style portfolio — windowed workspace, terminal, and mobile shell for project deep dives.",
-    tech: ["Next.js", "TypeScript", "Zustand", "Framer Motion"],
+      "Interactive portfolio — desktop-style windows, project cards, and a mobile shell.",
+    tech: ["Next.js", "Zustand", "Framer Motion"],
     link: "https://chrisos.dev",
     label: "interface",
     featured: true,
-    status: "Live",
-    proofType: "Public repo + live site",
+    status: "Live · public repo",
     details: {
       overview:
-        "OS-inspired portfolio treating projects, resume, and stack as first-class apps.",
-      problem: "Static portfolios flatten systems thinking and product craft.",
+        "Portfolio as a small OS-like workspace instead of a single scrolling resume page.",
+      problem: "Static portfolios flatten how you think about systems and product work.",
       solution:
-        "Browser-based desktop shell with deep-dive content model shared across desktop and mobile.",
-      architecture:
-        "Next.js App Router, Zustand window store, structured content in content/*.ts.",
+        "Window manager, dock, terminal, and shared content model for project deep dives.",
+      architecture: "Next.js App Router, Zustand window store, content/*.ts data files.",
       features: [
-        "Window manager with dock and terminal",
+        "Draggable/resizable app windows",
         "Mobile launcher and deep-dive views",
-        "Curated project cards linking to case studies",
+        "Project cards linking to case studies where they exist",
       ],
       links: [
         { label: "Open ChrisOS →", href: "https://chrisos.dev" },
@@ -338,76 +303,62 @@ export const projects: Project[] = [
   {
     id: "genesis-mastery",
     name: "Genesis Mastery",
-    description:
-      "Master's-level Genesis curriculum platform scaffold with admin CMS patterns and seeded course structure.",
+    description: "EdTech scaffold for a Genesis curriculum platform with admin CMS patterns.",
     tech: ["Next.js", "Prisma", "NextAuth"],
     label: "private",
     featured: false,
-    status: "Scaffold",
-    proofType: "Private repo",
-    privacyLabel: "EdTech — not yet public-facing",
+    status: "Scaffold · private repo",
   },
   {
     id: "wilmington-engine",
     name: "Wilmington Engine",
-    description:
-      "Policy-driven news/content automation engine — monorepo with pipeline workers and web admin stub.",
+    description: "News/content automation pipeline experiment — monorepo with workers and a web admin stub.",
     tech: ["Next.js", "Neon", "TypeScript"],
     label: "experimental",
     featured: false,
-    status: "R&D",
-    proofType: "Private repo",
-    privacyLabel: "Experimental automation",
+    status: "R&D · private repo",
   },
   {
     id: "visual-conversations",
     name: "Visual Conversations",
-    description:
-      "Experimental UI intent assistant — Chrome extension + CLI with LLM-backed session summaries.",
+    description: "Chrome extension + CLI experiment for UI intent assistance.",
     tech: ["TypeScript", "Chrome Extension", "OpenAI"],
     label: "experimental",
     featured: false,
-    status: "Experimental",
-    proofType: "Private repo",
+    status: "Experimental · private repo",
   },
   {
     id: "pathbound-mobile",
     name: "Pathbound Mobile",
-    description:
-      "Dark-fantasy 2D top-down MMO-lite — active Godot 4 prototype with archived Expo exploration.",
-    tech: ["Godot 4", "GDScript"],
+    description: "Dark-fantasy 2D game prototype in Godot 4 (Expo prototype archived).",
+    tech: ["Godot 4"],
     label: "experimental",
     featured: false,
-    status: "In progress",
-    proofType: "Private repo",
-    privacyLabel: "Personal game lab",
+    status: "Lab project · private repo",
   },
   {
     id: "thank-you-for-dying",
     name: "Thank You For Dying",
-    description:
-      "Immersive event brand and website concept with dark, artistic aesthetic and theatrical tone.",
-    tech: ["Next.js", "Tailwind CSS", "custom UI"],
+    description: "Event brand and website concept — private client work.",
+    tech: ["Next.js", "Tailwind CSS"],
     label: "private",
     featured: false,
-    privacyLabel: "Client/private — no public case study",
+    status: "Private client work",
   },
   {
     id: "regal-rides",
     name: "Regal Rides Platform",
-    description:
-      "Conversion-focused limo service website and booking experience built from a customized travel template.",
-    tech: ["Next.js", "frontend UI"],
+    description: "Limo service site and booking experience — private client work.",
+    tech: ["Next.js"],
     label: "private",
-    privacyLabel: "Client work — details private",
+    status: "Private client work",
   },
   {
     id: "ronald-wayne",
     name: "Ronald G. Wayne Website",
-    description:
-      "Website for Apple's third co-founder — financial education content, books, and merchandise architecture.",
-    tech: ["Next.js", "ecommerce", "content architecture"],
+    description: "Content and ecommerce site for Apple's third co-founder — private client work.",
+    tech: ["Next.js"],
     label: "private",
-    privacyLabel: "Client work — details private",
+    status: "Private client work",
   },
 ];
