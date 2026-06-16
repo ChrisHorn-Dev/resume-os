@@ -20,8 +20,9 @@ export default function WelcomeApp() {
         Chris Horn
       </h1>
       <p className="mt-3 max-w-md text-[15px] leading-relaxed text-[color:var(--muted)]">
-        Product-focused developer building operational SaaS platforms and
-        real-world software systems.
+        Senior product engineer building multi-tenant SaaS, operational
+        platforms, and production systems — with public architecture case
+        studies when code stays private.
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
         <button

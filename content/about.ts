@@ -1,20 +1,20 @@
-export const aboutBio = `Product engineer building SaaS platforms, APIs, and operational tools.
+export const aboutBio = `Senior product engineer building multi-tenant SaaS platforms, operational systems, and production-grade APIs.
 
-My work focuses on turning complex operational problems into reliable software — from multi-role scheduling platforms to verification-oriented APIs and workflow systems.
+My work centers on turning complex real-world workflows into reliable software — multi-role scheduling platforms, construction intelligence systems, client ops portals, and verification-oriented APIs.
 
-I specialize in taking ideas from concept to functional product, balancing product thinking, engineering, and design to ship systems that are practical for real organizations.
+I take products from fragile prototype to launch-ready systems: tightening auth boundaries, hardening integrations, migrating infrastructure, and making operational behavior predictable for the teams that depend on it.
 
-Recent work includes multi-role SaaS platforms, media authenticity and verification APIs, and business-facing applications used by real teams.`;
+Much of my strongest work is in private repositories. I publish architecture case studies and use ChrisOS to present that work with the same rigor I'd bring to a staff-level design review.`;
 
 export const capabilities = [
-  "Product-driven software development",
-  "Multi-role web applications and SaaS-style platforms",
-  "Operational dashboards and internal workflow tools",
+  "Multi-tenant SaaS and role-based operational platforms",
+  "Production hardening — auth, data integrity, migrations, observability",
   "API design, verification flows, and backend workflow systems",
-  "Modern frontend development and UI refinement",
-  "Rapid MVP development and product iteration",
-  "Developer tooling and workflow automation",
-  "Error handling, monitoring, and system reliability",
-  "High-performance product and portfolio websites",
-  "Cross-disciplinary product thinking across design, engineering, and business",
+  "Full-stack product ownership from concept through launch",
+  "Python/FastAPI platforms with workers, ingestion, and time-series data",
+  "Operational dashboards, admin tooling, and field/mobile workflows",
+  "Architecture case studies for private and client-sensitive codebases",
+  "Delivery leadership — portfolio staffing, timelines, and client alignment",
+  "Modern frontend systems and interaction design (Next.js, React, TypeScript)",
+  "Practical tradeoff reasoning across product, engineering, and operations",
 ];

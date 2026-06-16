@@ -39,10 +39,10 @@ export default function MobileIdentityModule() {
             Chris Horn
           </span>
           <span className="text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-            Product-Focused
+            Senior Product
           </span>
           <span className="text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-            Software Engineer
+            Engineer
           </span>
         </div>
         <a

@@ -550,8 +550,54 @@ export const projectDeepDives: Record<ProjectId, ProjectDeepDive> = {
   siteos: {
     id: "siteos",
     quickSummary:
-      "Construction dashboard system built around field updates, project signals, and executive views.",
-    sections: [],
+      "Construction intelligence platform — portfolio signals, ingestion pipelines, executive dashboards, document intelligence, and field mobile workflows.",
+    sections: [
+      {
+        id: "overview",
+        summary:
+          "SiteOS is a construction portfolio and project intelligence platform for custom builders — combining tenant project data, field input, external market signals, and document intelligence into leadership workflows.",
+        blocks: [
+          {
+            type: "text",
+            body:
+              "The product is positioned as an intelligence layer on top of how builders already work (Dropbox, email, spreadsheets) — not a full construction ERP replacement. Work spans FastAPI/Celery backend services, Next.js dashboards, Expo mobile capture, and ingestion pipelines into PostgreSQL and time-series stores.",
+          },
+          {
+            type: "bullet-list",
+            items: [
+              "Portfolio signal desk for weekly executive review.",
+              "Project knowledge and document ingest with cited Q&A.",
+              "Field → platform loop through daily reports and mobile capture.",
+              "Honest data grain labeling for benchmarks and external signals.",
+            ],
+          },
+        ],
+      },
+      {
+        id: "architecture",
+        summary:
+          "Layered data architecture with raw ingest, validation, benchmark tables, and tenant-isolated project data — served by FastAPI, Celery workers, and multi-surface Next.js/Expo clients.",
+        blocks: [
+          {
+            type: "architecture-diagram",
+            title: "High-level platform layout",
+            nodes: [
+              { id: "ingest", label: "Ingestion", role: "scrapers + Celery workers" },
+              { id: "validate", label: "Validation", role: "format + business rules + quarantine" },
+              { id: "api", label: "FastAPI", role: "REST + WebSockets" },
+              { id: "db", label: "PostgreSQL", role: "tenant projects + benchmarks" },
+              { id: "ui", label: "Dashboards", role: "Next.js persona surfaces + Expo mobile" },
+            ],
+            flows: [
+              { from: "ingest", to: "validate", label: "raw → validated" },
+              { from: "validate", to: "db", label: "promote clean rows" },
+              { from: "api", to: "db", label: "read/write tenant state" },
+              { from: "ui", to: "api", label: "dashboards + field capture" },
+            ],
+          },
+        ],
+      },
+    ],
   },
   "elite-touch-client-portal": {
     id: "elite-touch-client-portal",

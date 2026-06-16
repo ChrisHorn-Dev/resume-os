@@ -1,5 +1,19 @@
 {
   "buildCommand": "pnpm build",
   "outputDirectory": ".next",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "chrishorn.dev" }],
+      "destination": "https://chrisos.dev/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.chrishorn.dev" }],
+      "destination": "https://chrisos.dev/:path*",
+      "permanent": true
+    }
+  ]
 }

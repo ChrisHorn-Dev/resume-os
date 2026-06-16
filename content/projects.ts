@@ -39,11 +39,11 @@ export const projects: Project[] = [
     id: "physician-connection",
     name: "Physician Connection Platform",
     description:
-      "Scheduling platform for rep-practice appointment workflows and multi-role dashboards.",
-    stack: ["Next.js", "TypeScript", "Drizzle ORM", "Tailwind"],
+      "Multi-role healthcare SaaS for rep–practice scheduling, production hardening, and infrastructure migration.",
+    stack: ["Next.js", "TypeScript", "Drizzle ORM", "Cal.com", "Neon"],
     status: "Case study",
     label: "case-study",
-    link: "https://github.com/ChrisHorn-Dev/case-studies/tree/main/physician-connection",
+    link: "https://github.com/ChrisHorn-Dev/case-studies/blob/main/physician-connection.md",
     details: {
       overview:
         "Multi-role scheduling platform for rep-practice appointment workflows, with dashboards for reps, practices, and admins.",
@@ -63,10 +63,11 @@ export const projects: Project[] = [
     id: "siteos",
     name: "SiteOS",
     description:
-      "Construction dashboard system built around field updates, project signals, and executive views.",
-    stack: ["FastAPI", "Next.js", "PostgreSQL", "Celery", "Expo"],
-    status: "Private project",
-    label: "private",
+      "Construction intelligence platform — portfolio signals, ingestion pipelines, executive dashboards, and field mobile workflows.",
+    stack: ["FastAPI", "Celery", "PostgreSQL", "Next.js", "Expo"],
+    status: "Case study",
+    label: "case-study",
+    link: "https://github.com/ChrisHorn-Dev/case-studies/blob/main/siteos.md",
     details: {
       overview:
         "Construction dashboard system built around project signals, field/mobile workflows, and executive views.",
@@ -84,10 +85,11 @@ export const projects: Project[] = [
     id: "elite-touch-client-portal",
     name: "Elite Touch Cleaning Companion App",
     description:
-      "Client portal for cleaning requests, emergency messages, admin triage, and notifications.",
+      "Client ops portal for typed service requests, SOS emergencies, admin triage, and notification audit trails.",
     stack: ["Next.js", "Prisma", "Twilio", "Resend"],
-    status: "Private project",
-    label: "private",
+    status: "Case study",
+    label: "case-study",
+    link: "https://github.com/ChrisHorn-Dev/case-studies/blob/main/elite-touch-cleaning.md",
     details: {
       overview:
         "Client portal for service requests, emergency messaging, admin triage, and notification audit.",
@@ -222,9 +224,9 @@ export const projects: Project[] = [
     id: "chrisos",
     name: "ChrisOS",
     description:
-      "OS-style portfolio shell with windows, terminal, project views, and a mobile layout.",
+      "Interactive portfolio shell — window manager, terminal, and mobile layout for architecture case studies.",
     stack: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-    status: "Public repo",
+    status: "Live portfolio",
     label: "interface",
     link: "https://github.com/ChrisHorn-Dev/resume-os",
     details: {

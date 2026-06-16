@@ -21,19 +21,19 @@ export default function ResumeApp() {
           <ul className="mt-1.5 space-y-1.75 text-[13px] text-[color:var(--foreground)]">
             <li className="flex items-start gap-2">
               <span className="mt-[6px] h-[3px] w-[3px] rounded-full bg-[color:var(--muted)]/70" />
-              <span>SaaS platforms and workflow software</span>
+              <span>Multi-tenant SaaS and production platform engineering</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-[6px] h-[3px] w-[3px] rounded-full bg-[color:var(--muted)]/70" />
-              <span>API architecture, verification flows, and backend services</span>
+              <span>Infrastructure migration, auth boundaries, and observability</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-[6px] h-[3px] w-[3px] rounded-full bg-[color:var(--muted)]/70" />
-              <span>Role-based dashboards and internal tools</span>
+              <span>API design, verification flows, and backend workflow systems</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="mt-[6px] h-[3px] w-[3px] rounded-full bg-[color:var(--muted)]/70" />
-              <span>Full-stack product development and modern frontend UX</span>
+              <span>Architecture case studies for private flagship work</span>
             </li>
           </ul>
         </section>
@@ -48,7 +48,23 @@ export default function ResumeApp() {
                 Physician Connection Platform
               </span>
               <span>
-                Production SaaS platform coordinating appointment workflows between pharmaceutical reps and physician practices.
+                Multi-role healthcare SaaS — guided booking, Cal.com integration, auth hardening, and Oracle → Vercel/Railway migration.
+              </span>
+            </li>
+            <li className="flex flex-col gap-0.5">
+              <span className="font-medium text-[color:var(--foreground)]">
+                SiteOS
+              </span>
+              <span>
+                Construction intelligence platform — ingestion pipelines, executive dashboards, document intelligence, and field mobile workflows.
+              </span>
+            </li>
+            <li className="flex flex-col gap-0.5">
+              <span className="font-medium text-[color:var(--foreground)]">
+                Elite Touch Client Portal
+              </span>
+              <span>
+                Client ops system — typed service requests, SOS path, admin triage, and notification audit trails for a commercial cleaning company.
               </span>
             </li>
             <li className="flex flex-col gap-0.5">
@@ -56,15 +72,7 @@ export default function ResumeApp() {
                 Media Authenticity API
               </span>
               <span>
-                Verification-oriented API that analyzes images for likely synthetic vs authentic and returns signed results with a verification endpoint.
-              </span>
-            </li>
-            <li className="flex flex-col gap-0.5">
-              <span className="font-medium text-[color:var(--foreground)]">
-                ChrisOS
-              </span>
-              <span>
-                OS-inspired, desktop-style portfolio shell with a window manager, guided terminal, and mobile shell for exploring projects and experience in the browser.
+                Public API with signed image analysis and a verification endpoint for tamper-evident authenticity results.
               </span>
             </li>
           </ul>

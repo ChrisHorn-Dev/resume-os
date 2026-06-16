@@ -19,8 +19,10 @@ const HELP_OUTPUT = `Available commands:
   help            — show this help
   projects        — featured work overview
   physician       — Physician Connection Platform case study
+  siteos          — SiteOS construction intelligence overview
+  elite-touch     — Elite Touch client ops portal overview
   cape-fear       — Cape Fear Web Co overview
-  chrisos         — ChrisOS interface overview
+  chrisos         — ChrisOS portfolio shell overview
   architecture    — system architecture
   stack           — tech stack
   build-log       — build notes
@@ -39,6 +41,8 @@ const PROJECT_ALIAS_TO_ID: Record<string, string> = {
   "media-auth": "media-auth-api",
   "media-auth-api": "media-auth-api",
   chrisos: "chrisos",
+  siteos: "siteos",
+  "elite-touch": "elite-touch-client-portal",
 };
 
 /** Shared command definitions: output text + optional actions. Same vocabulary for desktop and mobile. */
@@ -49,28 +53,57 @@ export const TERMINAL_COMMANDS: Record<string, TerminalCommandDef> = {
   projects: {
     output: `Loaded featured work:
 - Physician Connection Platform
+- SiteOS
+- Elite Touch Client Portal
 - Cape Fear Web Co
-- ChrisOS
+- ChrisOS (this portfolio)
 
 Actions:`,
     actions: [
       { label: "Open Physician Connection", appId: "projects", projectId: "physician-connection" },
+      { label: "Open SiteOS", appId: "projects", projectId: "siteos" },
+      { label: "Open Elite Touch", appId: "projects", projectId: "elite-touch-client-portal" },
       { label: "Open Cape Fear Web Co", appId: "projects", projectId: "cape-fear-web" },
-      { label: "Open ChrisOS", appId: "projects", projectId: "chrisos" },
     ],
   },
   physician: {
     output: `Physician Connection Platform
 ────────────────────────────────
-Operational SaaS for pharmaceutical rep access to healthcare practices.
+Multi-role healthcare SaaS for rep–practice appointment coordination.
 
-• Multi-role dashboards (reps, practice staff, admins)
-• Centralized appointment workflows and access rules
-• Internal error logging and resolution flows
-• Super-admin views for system health
+• Guided booking flows that prevent partial/ambiguous state
+• Role-based dashboards for reps, practices, physicians, and admins
+• Cal.com integration with domain ownership in PC
+• Production migration and observability hardening
 
-Focus: taking an unstable MVP toward launch-ready.`,
+Focus: fragile prototype → MVP-ready production software.`,
     actions: [{ label: "View Case Study", appId: "projects", projectId: "physician-connection" }],
+  },
+  siteos: {
+    output: `SiteOS
+──────
+Construction intelligence platform for custom builders.
+
+• Portfolio signals, executive dashboards, and cost intelligence
+• FastAPI + Celery ingestion pipelines and time-series data
+• Document intelligence with cited project Q&A
+• Expo mobile client for field workflows
+
+Private repo — public architecture case study available.`,
+    actions: [{ label: "View Case Study", appId: "projects", projectId: "siteos" }],
+  },
+  "elite-touch": {
+    output: `Elite Touch Client Portal
+─────────────────────────
+Client ops system for a commercial cleaning company.
+
+• Typed service requests and separate SOS emergency path
+• Admin triage queue with notification audit trail
+• Twilio SMS + Resend email with mock mode for demos
+• Proposal/PDF generator in the same client ecosystem
+
+Private repo — public case study available.`,
+    actions: [{ label: "View Case Study", appId: "projects", projectId: "elite-touch-client-portal" }],
   },
   "cape-fear": {
     output: `Cape Fear Web Co
@@ -87,13 +120,13 @@ Focus: modern, affordable web presence.`,
   chrisos: {
     output: `ChrisOS
 ───────
-Experimental portfolio that behaves like an operating system.
+Interactive portfolio shell — window manager, terminal, and mobile layout.
 
-• Desktop and mobile shells, windows, dock, launcher
-• Projects, resume, tech stack as first-class "apps"
-• Interaction design and product storytelling
+• Presents architecture case studies for private flagship work
+• Desktop and mobile shells share the same project model
+• Resume, projects, and deep dives as first-class "apps"
 
-Goal: portfolio as software, not a static site.`,
+Goal: senior positioning with proof, not a static PDF.`,
     actions: [{ label: "Open ChrisOS Overview", appId: "about" }],
   },
   architecture: {
