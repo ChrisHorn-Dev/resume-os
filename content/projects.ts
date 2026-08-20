@@ -63,22 +63,22 @@ export const projects: Project[] = [
     id: "siteos",
     name: "SiteOS",
     description:
-      "Construction intelligence platform — portfolio signals, ingestion pipelines, executive dashboards, and field mobile workflows.",
-    stack: ["FastAPI", "Celery", "PostgreSQL", "Next.js", "Expo"],
+      "Construction intelligence platform — portfolio signals, ingestion pipelines, and executive dashboards.",
+    stack: ["FastAPI", "Celery", "PostgreSQL", "Next.js"],
     status: "Case study",
     label: "case-study",
     link: "https://github.com/ChrisHorn-Dev/case-studies/blob/main/siteos.md",
     details: {
       overview:
-        "Construction dashboard system built around project signals, field/mobile workflows, and executive views.",
+        "Construction dashboard system built around project signals and executive views. A dedicated Expo field app is not claimed as shipped in the current repository.",
       highlights: [
         "Project signals and dashboard views",
-        "Field and mobile workflow support",
+        "Ingestion pipelines and signal coverage",
         "Signal engine under the SiteOS architecture",
         "Executive and project-level visibility",
       ],
       architecture:
-        "FastAPI backend with PostgreSQL, Celery workers, Next.js dashboards, and Expo mobile clients.",
+        "FastAPI backend with PostgreSQL, Celery workers, and Next.js dashboards. Mobile field client remains a product direction, not an in-repo Expo app.",
     },
   },
   {
